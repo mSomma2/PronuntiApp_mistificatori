@@ -4,7 +4,7 @@ plugins {
 
 android {
     namespace = "com.example.pronuntiapp_mistificatori"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.example.pronuntiapp_mistificatori"
