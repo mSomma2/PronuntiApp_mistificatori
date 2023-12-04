@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
                         // Salva le coordinate iniziali del tocco
                         dX = view.getX() - event.getRawX();
                         dY = view.getY() - event.getRawY();
-                        dX=0;
                         break;
 
                     case MotionEvent.ACTION_MOVE:
