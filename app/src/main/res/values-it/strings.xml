@@ -4,6 +4,8 @@
     <string name="accedi">Accesso</string>
     <string name="nome">Nome</string>
     <string name="email">Email</string>
+    <string name="pw">Password</string>
     <string name="registrazione">Non sono reglistrato</string>
+    <string name="logo">logo</string>
 
 </resources>

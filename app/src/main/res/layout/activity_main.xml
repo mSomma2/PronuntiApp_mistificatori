@@ -19,6 +19,7 @@
             android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/logo"
             android:src="@tools:sample/avatars" />
 
         <Space
@@ -39,7 +40,7 @@
                 android:id="@+id/editText"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                android:hint="Email"/>
+                android:hint="@string/email"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <Space
@@ -59,7 +60,7 @@
                 android:id="@+id/editText2"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                android:hint="Password"/>
+                android:hint="@string/pw"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <Space
@@ -69,12 +70,14 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Login"/>
+            android:backgroundTint="@color/blue"
+            android:textSize="20sp"
+            android:text="@string/accedi"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Non sei registrato? Clicca qui"/>
+            android:text="@string/registrazione"/>
 
     </LinearLayout>
 
