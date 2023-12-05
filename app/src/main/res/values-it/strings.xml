@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">PronuntiApp - mistificatori</string>
-    <string name="accedi">Accesso</string>
+    <string name="accedi">Accedi</string>
     <string name="nome">Nome</string>
     <string name="email">Email</string>
     <string name="pw">Password</string>
