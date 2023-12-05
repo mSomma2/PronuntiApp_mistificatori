@@ -17,10 +17,10 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="200dp"
+            android:layout_height="150dp"
             android:contentDescription="@string/logo"
-            android:src="@tools:sample/avatars" />
+            android:src="@drawable/logo" />
 
         <Space
             android:layout_width="wrap_content"
@@ -40,6 +40,7 @@
                 android:id="@+id/editText"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
                 android:hint="@string/email"/>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -60,6 +61,7 @@
                 android:id="@+id/editText2"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
+                android:inputType="textPassword"
                 android:hint="@string/pw"/>
         </com.google.android.material.textfield.TextInputLayout>
 
