@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         ImageView img;
+
         img = findViewById(R.id.imageView);
 
         img.setOnTouchListener(new View.OnTouchListener() {
