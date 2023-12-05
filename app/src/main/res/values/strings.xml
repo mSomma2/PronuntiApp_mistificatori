@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">PronuntiApp - mistificatori</string>
+    <string name="accedi">Log in</string>
+    <string name="nome">Name</string>
+    <string name="email">Email</string>
+    <string name="pw">Password</string>
+    <string name="registrazione">Sign Up</string>
+    <string name="logo">log</string>
+
 </resources>
