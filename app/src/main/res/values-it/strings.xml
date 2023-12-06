@@ -6,6 +6,7 @@
     <string name="email">Email</string>
     <string name="pw">Password</string>
     <string name="registrazione">Non sono reglistrato</string>
-    <string name="logo">logo</string>
+    <string name="logo">logo app</string>
+    <string name="addKid">Button aggiungi figlio</string>
 
 </resources>
