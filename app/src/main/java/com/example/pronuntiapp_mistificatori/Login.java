@@ -2,10 +2,13 @@ package com.example.pronuntiapp_mistificatori;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 public class Login extends AppCompatActivity {
 
@@ -44,5 +47,9 @@ public class Login extends AppCompatActivity {
                 return true;
             }
         });
+    }
+
+    private void goToSignUp(){
+        Intent i = new Intent(this, signUp.class);
     }
 }

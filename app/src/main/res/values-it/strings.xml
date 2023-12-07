@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">PronuntiApp - mistificatori</string>
-    <string name="accedi">Accedi</string>
-    <string name="nome">Nome</string>
+    <string name="login">Accedi</string>
+    <string name="signup">Registrati</string>
+    <string name="name">Nome</string>
     <string name="email">Email</string>
     <string name="pw">Password</string>
-    <string name="registrazione">Non sono reglistrato</string>
+    <string name="createAccount">Clicca qui per registrarti</string>
+    <string name="backToLogin">Clicca qui per accedere</string>
     <string name="logo">logo app</string>
     <string name="addKid">Button aggiungi figlio</string>
 
