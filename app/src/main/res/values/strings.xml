@@ -5,9 +5,13 @@
     <string name="name">Name</string>
     <string name="email">Email</string>
     <string name="pw">Password</string>
+    <string name="repeatPw">Repeat password</string>
     <string name="createAccount">Click here for Sign Up</string>
     <string name="backToLogin">Click here for Log In</string>
     <string name="logo">logo app</string>
     <string name="addKid">Add child button</string>
+    <string name="errorMail">Invalid email</string>
+    <string name="errorPassword">Password must contain a number and an uppercase character</string>
+    <string name="errorRepeatPassword">Passwords do not match</string>
 
 </resources>

@@ -34,6 +34,7 @@
             app:boxCornerRadiusBottomStart="8dp"
             app:boxCornerRadiusTopEnd="8dp"
             app:boxCornerRadiusTopStart="8dp"
+            android:outlineAmbientShadowColor="@color/pink"
             >
 
             <com.google.android.material.textfield.TextInputEditText
@@ -43,6 +44,14 @@
                 android:inputType="textEmailAddress"
                 android:hint="@string/email"/>
         </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/errorEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/errorMail"
+            android:visibility="gone"
+            android:textColor="@color/red"/>
 
         <Space
             android:layout_width="wrap_content"
@@ -65,21 +74,63 @@
                 android:hint="@string/pw"/>
         </com.google.android.material.textfield.TextInputLayout>
 
+        <TextView
+            android:id="@+id/errorPassword1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/errorPassword"
+            android:visibility="gone"
+            android:textColor="@color/red"/>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:boxCornerRadiusBottomEnd="8dp"
+            app:boxCornerRadiusBottomStart="8dp"
+            app:boxCornerRadiusTopEnd="8dp"
+            app:boxCornerRadiusTopStart="8dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextRepeatPassword"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:hint="@string/repeatPw"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/errorPassword2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/errorRepeatPassword"
+            android:visibility="gone"
+            android:textColor="@color/red"/>
+
         <Space
             android:layout_width="wrap_content"
             android:layout_height="30dp"/>
 
         <Button
+            android:id="@+id/SignUp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/blue"
+            android:backgroundTint="@color/red"
             android:textSize="19sp"
-            android:text="@string/signup"/>
+            android:text="@string/signup"
+            android:enabled="false"
+            android:textColor="@color/white"
+            android:onClick="signUp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/backToLogin"/>
+            android:text="@string/backToLogin"
+            android:onClick="goToLogIn"/>
 
     </LinearLayout>
 

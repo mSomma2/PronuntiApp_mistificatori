@@ -6,9 +6,13 @@
     <string name="name">Nome</string>
     <string name="email">Email</string>
     <string name="pw">Password</string>
+    <string name="repeatPw">Ripeti password</string>
     <string name="createAccount">Clicca qui per registrarti</string>
     <string name="backToLogin">Clicca qui per accedere</string>
     <string name="logo">logo app</string>
     <string name="addKid">Button aggiungi figlio</string>
+    <string name="errorMail">Mail non valida</string>
+    <string name="errorPassword">La password deve contenere un numero e un carattere maiuscolo</string>
+    <string name="errorRepeatPassword">Le password non coincidono</string>
 
 </resources>
