@@ -11,12 +11,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
-public class singUp extends AppCompatActivity {
+import com.google.firebase.auth.FirebaseAuth;
+
+public class signUp extends AppCompatActivity {
     EditText mail, password1, password2;
     TextView ErrorMail, ErrorPassword1, ErrorPassword2;
     Button SignUp;
     boolean m = false, p1 = false, p2 = false;
+
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +35,8 @@ public class singUp extends AppCompatActivity {
         ErrorMail = findViewById(R.id.errorEmail);
         ErrorPassword1 = findViewById(R.id.errorPassword1);
         ErrorPassword2 = findViewById(R.id.errorPassword2);
+
+        mAuth = FirebaseAuth.getInstance();
 
         //controllo campo email
         mail.addTextChangedListener(new TextWatcher() {
@@ -53,14 +60,14 @@ public class singUp extends AppCompatActivity {
                     ErrorMail.setVisibility(View.GONE);
                     if(m && p1 && p2){
                         SignUp.setEnabled(true);
-                        SignUp.setBackgroundColor(ContextCompat.getColor(singUp.this, R.color.blue));
+                        SignUp.setBackgroundColor(ContextCompat.getColor(signUp.this, R.color.blue));
                     }
                 } else {
                     // L'indirizzo email non è valido, gestisci di conseguenza
                     m=false;
                     ErrorMail.setVisibility(View.VISIBLE);
                     SignUp.setEnabled(false);
-                    SignUp.setBackgroundColor(ContextCompat.getColor(singUp.this, R.color.red));
+                    SignUp.setBackgroundColor(ContextCompat.getColor(signUp.this, R.color.red));
                 }
             }
         });
@@ -87,13 +94,13 @@ public class singUp extends AppCompatActivity {
                     ErrorPassword1.setVisibility(View.GONE);
                     if(m && p1 && p2){
                         SignUp.setEnabled(true);
-                        SignUp.setBackgroundColor(ContextCompat.getColor(singUp.this, R.color.blue));
+                        SignUp.setBackgroundColor(ContextCompat.getColor(signUp.this, R.color.blue));
                     }
                 } else {
                     p1=false;
                     ErrorPassword1.setVisibility(View.VISIBLE);
                     SignUp.setEnabled(false);
-                    SignUp.setBackgroundColor(ContextCompat.getColor(singUp.this, R.color.red));
+                    SignUp.setBackgroundColor(ContextCompat.getColor(signUp.this, R.color.red));
                 }
             }
         });
@@ -120,25 +127,38 @@ public class singUp extends AppCompatActivity {
                     ErrorPassword2.setVisibility(View.GONE);
                     if(m && p1 && p2){
                         SignUp.setEnabled(true);
-                        SignUp.setBackgroundColor(ContextCompat.getColor(singUp.this, R.color.blue));
+                        SignUp.setBackgroundColor(ContextCompat.getColor(signUp.this, R.color.blue));
                     }
                 } else {
                     // Le password non coincidono, gestisci di conseguenza
                     p2=false;
                     ErrorPassword2.setVisibility(View.VISIBLE);
                     SignUp.setEnabled(false);
-                    SignUp.setBackgroundColor(ContextCompat.getColor(singUp.this, R.color.red));
+                    SignUp.setBackgroundColor(ContextCompat.getColor(signUp.this, R.color.red));
                 }
             }
         });
     }
 
-    public void signUp(View view) {
-        String mailS, pw1, pw2;
+    public void signUpMethod(View view) {
+        String mailS, pw1;
         mailS = String.valueOf(mail.getText());
         pw1 = String.valueOf(password1.getText());
-        pw2 = String.valueOf(password2.getText());
-        finish();
+
+        mAuth.createUserWithEmailAndPassword(mailS, pw1)
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        // Registrazione riuscita
+                        Toast.makeText(signUp.this, getString(R.string.welcome), Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent(signUp.this, MainActivity.class);
+                        startActivity(i);
+                        finish();
+                    } else {
+                        // Se la registrazione non è riuscita, mostra un messaggio all'utente
+                        Toast.makeText(signUp.this, getString(R.string.failerSignup) + task.getException(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
     }
 
     public void goToLogIn(View view) {

@@ -34,8 +34,8 @@ public class MainActivity extends AppCompatActivity {
 
     // Metodo per avviare l'activity di login
     private void startLoginActivity() {
-        Intent intent = new Intent(this, Login.class);
-        startActivity(intent);
+        Intent i = new Intent(this, Login.class);
+        startActivity(i);
     }
 
 }

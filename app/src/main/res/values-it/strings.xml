@@ -14,5 +14,9 @@
     <string name="errorMail">Mail non valida</string>
     <string name="errorPassword">La password deve contenere un numero e un carattere maiuscolo</string>
     <string name="errorRepeatPassword">Le password non coincidono</string>
+    <string name="failedLogin">Mail o Password errata</string>
+    <string name="failerSignup">Registrazione fallita</string>
+    <string name="welcome">Benvenuto!</string>
+    <string name="welcomeBack">Bentornato!</string>
 
 </resources>

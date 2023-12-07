@@ -13,5 +13,9 @@
     <string name="errorMail">Invalid email</string>
     <string name="errorPassword">Password must contain a number and an uppercase character</string>
     <string name="errorRepeatPassword">Passwords do not match</string>
+    <string name="failedLogin">Wrong eMail or Password</string>
+    <string name="failerSignup">Sign up failed</string>
+    <string name="welcome">Welcome!</string>
+    <string name="welcomeBack">Welcome back!</string>
 
 </resources>
