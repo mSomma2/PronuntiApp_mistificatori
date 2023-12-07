@@ -80,6 +80,8 @@
             android:layout_height="wrap_content"
             android:text="@string/errorPassword"
             android:visibility="gone"
+            android:gravity="center"
+            android:textAlignment="center"
             android:textColor="@color/red"/>
 
         <Space
