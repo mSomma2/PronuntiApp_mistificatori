@@ -172,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
                     String nome = dataSnapshot.child("Nome").getValue(String.class);
 
                     assert sesso != null;
-                    createKid(nome, sesso);
+                    createKid(nome, sesso, code);
                 } else {
                     Toast.makeText(MainActivity.this, "codice non presente", Toast.LENGTH_SHORT).show();
                 }
@@ -185,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void createKid(String nome, String sesso){
+    private void createKid(String nome, String sesso, String code){
         LinearLayout newLinearLayout = new LinearLayout(this);
         newLinearLayout.setLayoutParams(new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
@@ -225,7 +225,7 @@ public class MainActivity extends AppCompatActivity {
         newLinearLayout.addView(newTextView);
 
         newLinearLayout.setOnClickListener(v -> {
-            //aprire activity
+            //aprire activity bambino pek mandando come parametro "code, nome"
         });
 
         // Aggiungi il nuovo LinearLayout a kidsLayout
