@@ -92,8 +92,8 @@
         <TextView
             android:id="@+id/goToSignUp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="@string/createAccount"
+            android:layout_height="49dp"
             android:onClick="goToSignUp"/>
 
     </LinearLayout>
