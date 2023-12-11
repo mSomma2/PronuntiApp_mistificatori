@@ -18,5 +18,6 @@
     <string name="failerSignup">Registrazione fallita</string>
     <string name="welcome">Benvenuto!</string>
     <string name="welcomeBack">Bentornato!</string>
-
+    <string name="insertcode">Inserisci il codice</string>
+    <string name="send">Invia</string>
 </resources>

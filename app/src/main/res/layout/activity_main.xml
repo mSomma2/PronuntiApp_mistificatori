@@ -49,12 +49,12 @@
 
         <ImageView
             android:id="@+id/addChild"
-            android:layout_width="60dp"
+            android:layout_width="50dp"
             android:layout_height="60dp"
-            android:src="@drawable/plus"
             android:layout_gravity="center"
+            android:contentDescription="@string/addKid"
             android:onClick="showDialog"
-            android:contentDescription="@string/addKid"/>
+            android:src="@drawable/plus" />
 
 
     </LinearLayout>
