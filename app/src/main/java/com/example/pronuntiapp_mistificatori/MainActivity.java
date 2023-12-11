@@ -3,6 +3,7 @@ package com.example.pronuntiapp_mistificatori;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.animation.ObjectAnimator;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -12,6 +13,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Space;
@@ -54,8 +56,11 @@ public class MainActivity extends AppCompatActivity {
             finish();
         }
         user = firebaseAuth.getCurrentUser();
-
+        final HorizontalScrollView horizontalScrollView = findViewById(R.id.horizontalScrollView);
         showKids();
+        ObjectAnimator objectAnimator = ObjectAnimator.ofInt(horizontalScrollView, "scrollX", 0, 250).setDuration(1000);
+        objectAnimator.setStartDelay(900);
+        objectAnimator.start();
 
     }
 
@@ -150,7 +155,6 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Errore nell'accesso al database", Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 
     private void showImages(String code){
