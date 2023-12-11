@@ -14,7 +14,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20sp"
-            android:text="inserisci codice"/>
+            android:text="@string/insertcode"/>
 
         <Space
             android:layout_width="wrap_content"
@@ -34,7 +34,7 @@
             android:id="@+id/buttonSubmit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Invia"/>
+            android:text="@string/send"/>
     </LinearLayout>
 
 

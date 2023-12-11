@@ -17,6 +17,7 @@
     <string name="failerSignup">Sign up failed</string>
     <string name="welcome">Welcome!</string>
     <string name="welcomeBack">Welcome back!</string>
-
+    <string name="insertcode">Insert code</string>
+    <string name="send">Send</string>
 
 </resources>
