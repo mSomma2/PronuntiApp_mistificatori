@@ -22,9 +22,9 @@
 
         <EditText
             android:id="@+id/editTextCode"
-            android:layout_width="124dp"
-            android:layout_height="49dp"
-            android:hint="001" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/code"/>
 
         <Space
             android:layout_width="wrap_content"

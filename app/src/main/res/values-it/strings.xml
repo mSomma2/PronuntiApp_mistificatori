@@ -20,7 +20,8 @@
     <string name="welcomeBack">Bentornato!</string>
     <string name="insertcode">Inserisci il codice</string>
     <string name="send">Invia</string>
-    <string name="correction">Correzzione</string>
+    <string name="code">001</string>
+    <string name="correction">Correzione</string>
     <string name="background">Seleziona Sfondo</string>
     <string name="therapy">Terapia</string>
     <string name="start">Avvia Gioco</string>

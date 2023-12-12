@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -14,22 +13,42 @@
         android:gravity="center">
 
         <TextView
-            android:id="@+id/kidname"
+            android:id="@+id/kidName"
             android:layout_width="wrap_content"
-            android:layout_height="49dp"
-            />
+            android:layout_height="wrap_content"
+            android:textSize="40sp"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/kidCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="17sp"/>
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"/>
+        <Button
+            android:id="@+id/startButton"
+            android:layout_width="270dp"
+            android:layout_height="70dp"
+            android:backgroundTint="@color/green"
+            android:text="@string/start"
+            android:textColor="@color/white"
+            android:textSize="19sp"
+            android:onClick="start"
+            tools:layout_editor_absoluteX="123dp"
+            tools:layout_editor_absoluteY="208dp" />
         <Space
             android:layout_width="wrap_content"
             android:layout_height="30dp"/>
         <Button
             android:id="@+id/correctionButton"
-            android:layout_width="160dp"
-            android:layout_height="86dp"
+            android:layout_width="270dp"
+            android:layout_height="70dp"
             android:backgroundTint="@color/blue"
-            android:enabled="false"
             android:text="@string/correction"
             android:textColor="@color/white"
-            android:textSize="19sp"
+            android:textSize="20sp"
+            android:textStyle="bold"
             android:onClick="correction"
             tools:layout_editor_absoluteX="123dp"
             tools:layout_editor_absoluteY="294dp" />
@@ -38,14 +57,13 @@
             android:layout_height="30dp"/>
         <Button
         android:id="@+id/backgroundButton"
-        android:layout_width="160dp"
-        android:layout_height="86dp"
+        android:layout_width="270dp"
+        android:layout_height="70dp"
         android:backgroundTint="@color/blue"
-        android:enabled="false"
         android:text="@string/background"
         android:textColor="@color/white"
         android:textSize="19sp"
-            android:onClick="background"
+        android:onClick="background"
         tools:layout_editor_absoluteX="134dp"
         tools:layout_editor_absoluteY="92dp" />
         <Space
@@ -53,31 +71,15 @@
             android:layout_height="30dp"/>
     <Button
         android:id="@+id/therapyButton"
-        android:layout_width="160dp"
-        android:layout_height="86dp"
+        android:layout_width="270dp"
+        android:layout_height="70dp"
         android:backgroundTint="@color/blue"
-        android:enabled="false"
         android:text="@string/therapy"
         android:textColor="@color/white"
         android:textSize="19sp"
         android:onClick="therapy"
         tools:layout_editor_absoluteX="123dp"
         tools:layout_editor_absoluteY="438dp" />
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"/>
-    <Button
-        android:id="@+id/startButton"
-        android:layout_width="160dp"
-        android:layout_height="86dp"
-        android:backgroundTint="@color/blue"
-        android:enabled="false"
-        android:text="@string/start"
-        android:textColor="@color/white"
-        android:textSize="19sp"
-        android:onClick="start"
-        tools:layout_editor_absoluteX="123dp"
-        tools:layout_editor_absoluteY="208dp" />
         <Space
             android:layout_width="wrap_content"
             android:layout_height="30dp"/>

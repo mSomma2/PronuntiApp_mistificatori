@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference databaseReference;
     LinearLayout kidsLayout;
     int cont=1;
+    private HorizontalScrollView horizontalScrollView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,11 +57,8 @@ public class MainActivity extends AppCompatActivity {
             finish();
         }
         user = firebaseAuth.getCurrentUser();
-        final HorizontalScrollView horizontalScrollView = findViewById(R.id.horizontalScrollView);
+        horizontalScrollView = findViewById(R.id.horizontalScrollView);
         showKids();
-        ObjectAnimator objectAnimator = ObjectAnimator.ofInt(horizontalScrollView, "scrollX", 0, 250).setDuration(1000);
-        objectAnimator.setStartDelay(900);
-        objectAnimator.start();
 
     }
 
@@ -176,6 +174,8 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(MainActivity.this, "codice non presente", Toast.LENGTH_SHORT).show();
                 }
+
+                showAnimation();
             }
 
             @Override
@@ -245,5 +245,10 @@ public class MainActivity extends AppCompatActivity {
         }
         kidsLayout.addView(newLinearLayout);
 
+    }
+
+    private void showAnimation(){
+        ObjectAnimator objectAnimator = ObjectAnimator.ofInt(horizontalScrollView, "scrollX", 0, 250).setDuration(1000);
+        objectAnimator.start();
     }
 }

@@ -129,7 +129,7 @@
             android:onClick="signUpMethod"/>
 
         <TextView
-            android:layout_width="145dp"
+            android:layout_width="wrap_content"
             android:onClick="goToLogIn"
             android:text="@string/backToLogin"
             android:layout_height="49dp"

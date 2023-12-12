@@ -7,16 +7,19 @@ import android.view.View;
 import android.widget.TextView;
 
 public class Parentmenu extends AppCompatActivity {
-    private TextView name;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_parentmenu);
+        TextView name, code;
+        String nome = getIntent().getStringExtra("nome");
+        String codice = getIntent().getStringExtra("code");
 
-        String nome=getIntent().getStringExtra("nome");
-        String code=getIntent().getStringExtra("code");
-        TextView name=  (TextView)findViewById(R.id.kidname);
-        name.setText(""+nome);
+        name = findViewById(R.id.kidName);
+        code = findViewById(R.id.kidCode);
+        name.setText(nome);
+        code.setText(codice);
     }
 
     public void background(View view) {
