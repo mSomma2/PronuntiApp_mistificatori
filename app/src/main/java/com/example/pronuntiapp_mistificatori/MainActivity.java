@@ -225,7 +225,14 @@ public class MainActivity extends AppCompatActivity {
         newLinearLayout.addView(newTextView);
 
         newLinearLayout.setOnClickListener(v -> {
-            //aprire activity bambino pek mandando come parametro "code, nome"
+
+                Intent i = new Intent(this, Parentmenu.class);
+             //   Bundle parametri =new Bundle();
+           //     parametri.putString("")
+            i.putExtra("nome", nome );
+            i.putExtra("code", code );
+                startActivity(i);
+              //aprire activity bambino pek mandando come parametro "code, nome"
         });
 
         // Aggiungi il nuovo LinearLayout a kidsLayout
