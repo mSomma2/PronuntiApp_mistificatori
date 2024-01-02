@@ -1,7 +1,10 @@
 package com.example.pronuntiapp_mistificatori;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.animation.ObjectAnimator;
 import android.app.Dialog;
@@ -10,16 +13,20 @@ import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Space;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -30,6 +37,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
@@ -40,6 +48,20 @@ public class MainActivity extends AppCompatActivity {
     LinearLayout kidsLayout;
     int cont=1;
     private HorizontalScrollView horizontalScrollView;
+    private DrawerLayout drawerLayout;
+    NavigationView navigationView;
+    boolean ctrl = false;
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private ActionBarDrawerToggle actionBarDrawerToggle;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         kidsLayout = findViewById(R.id.kidsList);
+        progressBar = findViewById(R.id.progressBar);
 
         firebaseAuth = FirebaseAuth.getInstance();
         // Verifica lo stato di accesso
@@ -58,9 +81,29 @@ public class MainActivity extends AppCompatActivity {
         }
         user = firebaseAuth.getCurrentUser();
         horizontalScrollView = findViewById(R.id.horizontalScrollView);
+        progressBar.setVisibility(View.VISIBLE);
         showKids();
 
+        //DRAWER
+        drawerLayout = findViewById(R.id.drawer_layout);
+
+        // Configura il toggle per gestire l'apertura e la chiusura del Navigation Drawer
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
+
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+
+        // Configura il listener per gestire gli item del Navigation Drawer
+        navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(item -> {
+            // Gestisci gli item del menu qui
+            drawerLayout.closeDrawers();
+            return true;
+        });
+        //END DRAWER
     }
+
 
     private boolean isLoggedIn() {
         FirebaseUser user = firebaseAuth.getCurrentUser();
@@ -145,6 +188,7 @@ public class MainActivity extends AppCompatActivity {
                         cont++;
                         //Toast.makeText(MainActivity.this, codice, Toast.LENGTH_SHORT).show();
                     }
+                    progressBar.setVisibility(View.GONE);
                 }
             }
             @Override
@@ -174,7 +218,6 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(MainActivity.this, "codice non presente", Toast.LENGTH_SHORT).show();
                 }
-
                 showAnimation();
             }
 
@@ -223,16 +266,19 @@ public class MainActivity extends AppCompatActivity {
         // Aggiungi ImageView e TextView al nuovo LinearLayout
         newLinearLayout.addView(newImageView);
         newLinearLayout.addView(newTextView);
+        if(!ctrl){
+            addMenuItemLogOut();
+            ctrl=true;
+        }
+        addMenuItem(nome, code);
 
         newLinearLayout.setOnClickListener(v -> {
 
-                Intent i = new Intent(this, Parentmenu.class);
-             //   Bundle parametri =new Bundle();
-           //     parametri.putString("")
-            i.putExtra("nome", nome );
-            i.putExtra("code", code );
+                Intent i = new Intent(this, ParentMenu.class);
+                i.putExtra("nome", nome );
+                i.putExtra("code", code );
                 startActivity(i);
-              //aprire activity bambino pek mandando come parametro "code, nome"
+              //aprire activity bambino mandando come parametro "code, nome"
         });
 
         // Aggiungi il nuovo LinearLayout a kidsLayout
@@ -245,6 +291,50 @@ public class MainActivity extends AppCompatActivity {
         }
         kidsLayout.addView(newLinearLayout);
 
+    }
+
+    private void addMenuItem(String title, String code) {
+        int dynamicId = View.generateViewId();
+        Menu menu = navigationView.getMenu();
+        MenuItem newItem = menu.add(Menu.NONE, dynamicId, Menu.NONE, title);
+        newItem.setCheckable(true);
+        newItem.setIcon(R.drawable.kids_nav);
+        newItem.setOnMenuItemClickListener(item -> {
+            drawerLayout.closeDrawers();
+            // Gestisci il clic sull'item
+            Intent i = new Intent(this, ParentMenu.class);
+            i.putExtra("nome", title );
+            i.putExtra("code", code );
+            startActivity(i);
+            return true;
+        });
+    }
+
+    private void addMenuItemLogOut(){
+        int dynamicId = View.generateViewId();
+        Menu menu = navigationView.getMenu();
+        MenuItem newItem = menu.add(Menu.NONE, dynamicId, Menu.NONE, getString(R.string.logout));
+        newItem.setCheckable(true);
+        newItem.setIcon(R.drawable.baseline_logout_24);
+        newItem.setOnMenuItemClickListener(item -> {
+            new AlertDialog.Builder(MainActivity.this)
+                    .setTitle(getString(R.string.logout))
+                    .setMessage(getString(R.string.logoutConfirm))
+                    .setPositiveButton(android.R.string.yes, (dialog, which) -> {
+                        FirebaseAuth.getInstance().signOut();
+                        dialog.dismiss();
+
+                        // Riavvia l'applicazione dopo il logout
+                        FirebaseUser user = firebaseAuth.getCurrentUser();
+                        if (user == null) {
+                            // L'utente è stato disconnesso, riavvia l'app
+                            recreate();
+                        }
+                    })
+                    .setNegativeButton(android.R.string.no, (dialog, which) -> dialog.dismiss())
+                    .show();
+            return true;
+        });
     }
 
     private void showAnimation(){

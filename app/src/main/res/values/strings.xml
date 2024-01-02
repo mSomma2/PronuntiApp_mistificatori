@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">PronuntiApp - mistificatori</string>
     <string name="login">Log in</string>
+    <string name="logout">Log out</string>
     <string name="signup">Sign Up</string>
     <string name="name">Name</string>
     <string name="email">Email</string>
@@ -24,4 +25,18 @@
     <string name="therapy">Therapy</string>
     <string name="start">Start Game</string>
     <string name="code">001</string>
+    <string name="open">Open navigation drawer</string>
+    <string name="close">Close navigation drawer</string>
+    <string name="logoutConfirm">Do you want to log out of the account?</string>
+    <string name="deleteKid">Delete</string>
+    <string name="confirmDeleteKid">Do you want to delete the profile of </string>
+    <string name="deleteProfile">Delete profile</string>
+    <string name="correct">correct</string>
+    <string name="wrong">wrong</string>
+    <string name="imgEs1">imgExOne</string>
+    <string name="help">help button</string>
+    <string name="microfone">Microfone button</string>
+    <string name="playAudio">play button</string>
+    <string name="cancelButton">Cancel</string>
+    <string name="confirmButtno">confirm</string>
 </resources>

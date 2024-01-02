@@ -2,6 +2,7 @@
 <resources>
     <string name="app_name">PronuntiApp - mistificatori</string>
     <string name="login">Accedi</string>
+    <string name="logout">Esci</string>
     <string name="signup">Registrati</string>
     <string name="name">Nome</string>
     <string name="email">Email</string>
@@ -25,4 +26,18 @@
     <string name="background">Seleziona Sfondo</string>
     <string name="therapy">Terapia</string>
     <string name="start">Avvia Gioco</string>
+    <string name="open">Apri navigation drawer</string>
+    <string name="close">Chiudi navigation drawer</string>
+    <string name="logoutConfirm">Vuoi essettuare la disconnessione dell\'account?</string>
+    <string name="deleteKid">Elimina</string>
+    <string name="confirmDeleteKid">Vuoi eliminare il profilo di </string>
+    <string name="deleteProfile">Elimina profilo</string>
+    <string name="correct">corretto</string>
+    <string name="wrong">sbagliato</string>
+    <string name="imgEs1">imgEsUno</string>
+    <string name="help">button aiuto</string>
+    <string name="microfone">button Microfono</string>
+    <string name="playAudio">play button</string>
+    <string name="cancelButton">Cancella</string>
+    <string name="confirmButtno">conferma</string>
 </resources>
