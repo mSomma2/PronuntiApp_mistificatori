@@ -6,14 +6,21 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.app.Dialog;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.speech.RecognitionListener;
+import android.speech.RecognizerIntent;
+import android.speech.SpeechRecognizer;
+import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageButton;
-import android.widget.SeekBar;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -22,9 +29,15 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Objects;
+import java.util.UUID;
 
 public class EsercizioRipetizione extends AppCompatActivity {
 
@@ -36,8 +49,7 @@ public class EsercizioRipetizione extends AppCompatActivity {
     private MediaPlayer mediaPlayer;
     private ImageButton recAudio, playAudio;
     boolean isRecording = false;
-    private SeekBar seekBar;
-    private final Handler handler = new Handler();
+    private DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,8 +79,9 @@ public class EsercizioRipetizione extends AppCompatActivity {
         mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
         mediaRecorder.setOutputFile(outputFile);
 
-        seekBar = findViewById(R.id.seekBar);
-
+        recAudio = findViewById(R.id.mic);
+        playAudio = findViewById(R.id.playAudio);
+        databaseReference = database.getReference("logopedisti/ABC/Pazienti/" + codice + "/Esercizi/07-12-2023");
     }
 
     private void Initialize(String es){
@@ -93,6 +106,116 @@ public class EsercizioRipetizione extends AppCompatActivity {
     }
 
     public void checkResul(View view) {
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+
+// Inizia l'ascolto
+        SpeechRecognizer speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this);
+        speechRecognizer.setRecognitionListener(new RecognitionListener() {
+            @Override
+            public void onReadyForSpeech(Bundle params) {
+
+            }
+
+            @Override
+            public void onBeginningOfSpeech() {
+
+            }
+
+            @Override
+            public void onRmsChanged(float rmsdB) {
+
+            }
+
+            @Override
+            public void onBufferReceived(byte[] buffer) {
+
+            }
+
+            @Override
+            public void onEndOfSpeech() {
+
+            }
+
+            @Override
+            public void onError(int error) {
+                showAnswer(R.layout.dialog_wrong);
+                databaseReference.child("esito").setValue(false);
+                provaCarica();
+            }
+
+            @Override
+            public void onResults(Bundle results) {
+                ArrayList<String> matches = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
+                assert matches != null;
+                if(matches.contains(parola)){
+                    mediaPlayer = MediaPlayer.create(EsercizioRipetizione.this, R.raw.correct);
+                    mediaPlayer.start();
+                    showAnswer(R.layout.dialog_correct);
+                    databaseReference.child("esito").setValue(true);
+                    provaCarica();
+
+                }else{
+                    mediaPlayer = MediaPlayer.create(EsercizioRipetizione.this, R.raw.wrong);
+                    mediaPlayer.start();
+                    showAnswer(R.layout.dialog_wrong);
+                    databaseReference.child("esito").setValue(false);
+                    provaCarica();
+                }
+                // 'matches' contiene il testo riconosciuto
+
+            }
+
+            @Override
+            public void onPartialResults(Bundle partialResults) {
+
+            }
+
+            @Override
+            public void onEvent(int eventType, Bundle params) {
+
+            }
+        });
+        speechRecognizer.startListening(intent);
+
+        MediaPlayer mp = new MediaPlayer();
+        try {
+            mp.setDataSource(outputFile);
+            mp.prepare();
+            mp.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void showAnswer(int layout) {
+        Handler handler = new Handler();
+        // Chiudi l'activity
+        handler.postDelayed(this::finish, 4300);
+
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(layout);
+        dialog.setCancelable(false); // Impedisci la chiusura del Dialog cliccando fuori da esso
+        dialog.show();
+    }
+
+    private void provaCarica(){
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageRef = storage.getReference();
+        String nomeFileAudio = UUID.randomUUID().toString();
+
+        StorageReference audioRef = storageRef.child("audio/" + nomeFileAudio + ".3gp");
+        Uri audioUri = Uri.fromFile(new File(outputFile));
+        UploadTask uploadTask = audioRef.putFile(audioUri);
+
+        uploadTask.addOnProgressListener(taskSnapshot -> {
+        }).addOnSuccessListener(taskSnapshot -> audioRef.getDownloadUrl().addOnSuccessListener(uri -> {
+            String audioUrl = uri.toString();
+            databaseReference.child("audio").setValue(audioUrl);
+            Log.d("URL", audioUrl);
+        })).addOnFailureListener(exception -> {
+        });
     }
 
     public void reset(View view) {
@@ -153,9 +276,6 @@ public class EsercizioRipetizione extends AppCompatActivity {
     }
 
     public void playAudio(View view) {
-        textToSpeechManager.speak(parola, 1f);
-        seekBar.setMax(textToSpeechManager.estimateSpeechDuration(parola, 1f));
-        //updateSeekBar();
         textToSpeechManager.speak(parola, 1f);
     }
 }

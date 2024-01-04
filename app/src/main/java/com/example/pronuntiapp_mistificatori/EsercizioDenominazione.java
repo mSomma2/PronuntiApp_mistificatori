@@ -239,6 +239,7 @@ public class EsercizioDenominazione extends AppCompatActivity{
             @Override
             public void onError(int error) {
                 showAnswer(R.layout.dialog_wrong);
+                databaseReference.child("esito").setValue(false);
                 provaCarica();
             }
 
