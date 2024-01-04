@@ -40,4 +40,13 @@ public class TextToSpeechManager implements TextToSpeech.OnInitListener {
             textToSpeech.shutdown();
         }
     }
+
+    public int estimateSpeechDuration(String text, float speed) {
+        // Assume una velocità di pronuncia media di 130 parole al minuto
+        int wordsPerMinute = 130;
+        float wordsPerSecond = wordsPerMinute / 60.0f;
+        int wordCount = text.split("\\s+").length;
+        float estimatedDurationInSeconds = wordCount / wordsPerSecond;
+        return (int) (estimatedDurationInSeconds * 1000 / speed);
+    }
 }

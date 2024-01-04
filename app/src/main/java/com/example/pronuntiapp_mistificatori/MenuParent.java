@@ -21,7 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class Parentmenu extends AppCompatActivity {
+public class MenuParent extends AppCompatActivity {
 
     private String codice, nome;
     private FirebaseUser currentUser;
@@ -67,9 +67,9 @@ public class Parentmenu extends AppCompatActivity {
     }
 
     public void start(View view) {
-        Intent i = new Intent(Parentmenu.this, EsercizioRipetizione.class);
+        Intent i = new Intent(MenuParent.this, EsercizioRipetizione.class);
         i.putExtra("codice", "001");
-        i.putExtra("esercizio", "4");
+        i.putExtra("esercizio", "2");
         startActivity(i);
     }
 
@@ -80,7 +80,7 @@ public class Parentmenu extends AppCompatActivity {
     }
 
     public void deleteKid(View view) {
-        new AlertDialog.Builder(Parentmenu.this)
+        new AlertDialog.Builder(MenuParent.this)
                 .setTitle(getString(R.string.deleteProfile))
                 .setMessage(getString(R.string.confirmDeleteKid) + " " + nome + "?")
                 .setPositiveButton(android.R.string.yes, (dialog, which) -> {
@@ -101,7 +101,7 @@ public class Parentmenu extends AppCompatActivity {
                                     if (task.isSuccessful()) {
                                         // Rimozione riuscita
                                         Log.d("TAG", "Nodo eliminato con successo");
-                                        Intent intent = new Intent(Parentmenu.this, MainActivity.class);
+                                        Intent intent = new Intent(MenuParent.this, MainActivity.class);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                                         startActivity(intent);
                                         finish();
@@ -115,7 +115,7 @@ public class Parentmenu extends AppCompatActivity {
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
-                            Toast.makeText(Parentmenu.this, "ERROR", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MenuParent.this, "ERROR", Toast.LENGTH_SHORT).show();
                         }
                     });
                 })

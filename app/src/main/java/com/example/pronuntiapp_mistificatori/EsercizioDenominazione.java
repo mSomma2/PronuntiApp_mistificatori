@@ -92,7 +92,6 @@ public class EsercizioDenominazione extends AppCompatActivity{
         mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
         mediaRecorder.setOutputFile(outputFile);
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance("https://pronuntiapp---mistificatori-default-rtdb.europe-west1.firebasedatabase.app");
         databaseReference = database.getReference("logopedisti/ABC/Pazienti/" + codice + "/Esercizi/07-12-2023");
     }
 

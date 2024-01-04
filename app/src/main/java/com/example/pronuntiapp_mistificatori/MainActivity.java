@@ -274,7 +274,7 @@ public class MainActivity extends AppCompatActivity {
 
         newLinearLayout.setOnClickListener(v -> {
 
-                Intent i = new Intent(this, ParentMenu.class);
+                Intent i = new Intent(this, MenuParent.class);
                 i.putExtra("nome", nome );
                 i.putExtra("code", code );
                 startActivity(i);
@@ -302,7 +302,7 @@ public class MainActivity extends AppCompatActivity {
         newItem.setOnMenuItemClickListener(item -> {
             drawerLayout.closeDrawers();
             // Gestisci il clic sull'item
-            Intent i = new Intent(this, ParentMenu.class);
+            Intent i = new Intent(this, MenuParent.class);
             i.putExtra("nome", title );
             i.putExtra("code", code );
             startActivity(i);

@@ -24,7 +24,7 @@
             android:name=".EsercizioDenominazione"
             android:exported="false" />
         <activity
-            android:name=".ParentMenu"
+            android:name=".MenuParent"
             android:exported="false" />
         <activity
             android:name=".signUp"
