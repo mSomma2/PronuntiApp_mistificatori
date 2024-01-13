@@ -43,7 +43,7 @@ public class EsercizioRipetizione extends AppCompatActivity {
 
     FirebaseDatabase database = FirebaseDatabase.getInstance("https://pronuntiapp---mistificatori-default-rtdb.europe-west1.firebasedatabase.app");
     FirebaseUser currentUser;
-    private String parola, outputFile;
+    private String parola, outputFile, codice;
     private TextToSpeechManager textToSpeechManager;
     private MediaRecorder mediaRecorder;
     private MediaPlayer mediaPlayer;
@@ -56,8 +56,9 @@ public class EsercizioRipetizione extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_esercizio_ripetizione);
 
-        String codice = getIntent().getStringExtra("codice");
+        codice = getIntent().getStringExtra("codice");
         String esercizio = getIntent().getStringExtra("esercizio");
+        String data = getIntent().getStringExtra("data");
 
         Initialize(esercizio);
 
@@ -81,7 +82,7 @@ public class EsercizioRipetizione extends AppCompatActivity {
 
         recAudio = findViewById(R.id.mic);
         playAudio = findViewById(R.id.playAudio);
-        databaseReference = database.getReference("logopedisti/ABC/Pazienti/" + codice + "/Esercizi/07-12-2023");
+        databaseReference = database.getReference("logopedisti/ABC/Pazienti/" + codice + "/Esercizi/" + data);
     }
 
     private void Initialize(String es){
@@ -189,9 +190,13 @@ public class EsercizioRipetizione extends AppCompatActivity {
     }
 
     private void showAnswer(int layout) {
+        Intent i = new Intent(EsercizioRipetizione.this, MappaBambino.class);
+        i.putExtra("codice", codice);
         Handler handler = new Handler();
-        // Chiudi l'activity
-        handler.postDelayed(this::finish, 4300);
+        handler.postDelayed(() -> {
+            startActivity(i);
+            finish();
+        }, 4300);
 
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);

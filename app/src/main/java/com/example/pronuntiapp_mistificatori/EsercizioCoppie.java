@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.media.MediaPlayer;
@@ -28,7 +29,7 @@ import java.util.Objects;
 public class EsercizioCoppie extends AppCompatActivity {
 
     private ImageView img1, img2;
-    private String parola;
+    private String parola, codice;
     FirebaseDatabase database = FirebaseDatabase.getInstance("https://pronuntiapp---mistificatori-default-rtdb.europe-west1.firebasedatabase.app");
     FirebaseUser currentUser;
     private ImageButton conf;
@@ -44,8 +45,9 @@ public class EsercizioCoppie extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_esercizio_coppie);
 
-        String codice = getIntent().getStringExtra("codice");
+        codice = getIntent().getStringExtra("codice");
         String esercizio = getIntent().getStringExtra("esercizio");
+        String data = getIntent().getStringExtra("data");
 
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         currentUser = firebaseAuth.getCurrentUser();
@@ -57,7 +59,7 @@ public class EsercizioCoppie extends AppCompatActivity {
         conf.setEnabled(false);
 
         Initialize(esercizio);
-        databaseReference = database.getReference("logopedisti/ABC/Pazienti/" + codice + "/Esercizi/07-12-2023");
+        databaseReference = database.getReference("logopedisti/ABC/Pazienti/" + codice + "/Esercizi/" + data);
         textToSpeechManager = new TextToSpeechManager(this);
     }
 
@@ -138,9 +140,13 @@ public class EsercizioCoppie extends AppCompatActivity {
     }
 
     private void showAnswer(int layout) {
+        Intent i = new Intent(EsercizioCoppie.this, MappaBambino.class);
+        i.putExtra("codice", codice);
         Handler handler = new Handler();
-        // Chiudi l'activity
-        handler.postDelayed(this::finish, 4300);
+        handler.postDelayed(() -> {
+            startActivity(i);
+            finish();
+        }, 4300);
 
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);

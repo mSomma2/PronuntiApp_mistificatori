@@ -39,4 +39,5 @@
     <string name="playAudio">play button</string>
     <string name="cancelButton">Cancel</string>
     <string name="confirmButtno">confirm</string>
+    <string name="coin">coins</string>
 </resources>

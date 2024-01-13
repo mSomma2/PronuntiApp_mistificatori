@@ -67,9 +67,10 @@ public class MenuParent extends AppCompatActivity {
     }
 
     public void start(View view) {
-        Intent i = new Intent(MenuParent.this, EsercizioCoppie.class);
+        Intent i = new Intent(MenuParent.this, MappaBambino.class);
+
+
         i.putExtra("codice", "001");
-        i.putExtra("esercizio", "3");
         startActivity(i);
     }
 

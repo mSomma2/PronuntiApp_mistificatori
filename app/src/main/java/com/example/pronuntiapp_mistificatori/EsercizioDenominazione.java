@@ -49,7 +49,7 @@ public class EsercizioDenominazione extends AppCompatActivity{
     private ImageView imageView;
     FirebaseDatabase database = FirebaseDatabase.getInstance("https://pronuntiapp---mistificatori-default-rtdb.europe-west1.firebasedatabase.app");
     FirebaseUser currentUser;
-    private String parola;
+    private String parola, codice;
     private TextToSpeechManager textToSpeechManager;
     private CardView cardView;
     int count = 0;
@@ -65,8 +65,9 @@ public class EsercizioDenominazione extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_esercizio_denominazione);
 
-        String codice = getIntent().getStringExtra("codice");
+        codice = getIntent().getStringExtra("codice");
         String esercizio = getIntent().getStringExtra("esercizio");
+        String data = getIntent().getStringExtra("data");
 
         imageView = findViewById(R.id.image);
         cardView = findViewById(R.id.sfonoHelp);
@@ -92,7 +93,7 @@ public class EsercizioDenominazione extends AppCompatActivity{
         mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
         mediaRecorder.setOutputFile(outputFile);
 
-        databaseReference = database.getReference("logopedisti/ABC/Pazienti/" + codice + "/Esercizi/07-12-2023");
+        databaseReference = database.getReference("logopedisti/ABC/Pazienti/" + codice + "/Esercizi/" + data);
     }
 
     void Initialize(String es){
@@ -195,6 +196,7 @@ public class EsercizioDenominazione extends AppCompatActivity{
         if (requestCode == 1) {
             if (grantResults.length > 0 && grantResults[0] != PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(EsercizioDenominazione.this, "chiedi aiuto al tuo genitore", Toast.LENGTH_SHORT).show();
+
                 finish();
             }
         }
@@ -291,9 +293,14 @@ public class EsercizioDenominazione extends AppCompatActivity{
     }
 
     private void showAnswer(int layout) {
-        Handler handler = new Handler();
         // Chiudi l'activity
-        handler.postDelayed(this::finish, 4300);
+        Intent i = new Intent(EsercizioDenominazione.this, MappaBambino.class);
+        i.putExtra("codice", codice);
+        Handler handler = new Handler();
+        handler.postDelayed(() -> {
+            startActivity(i);
+            finish();
+        }, 4300);
 
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
