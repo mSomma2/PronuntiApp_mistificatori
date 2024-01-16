@@ -71,6 +71,7 @@ public class EsercizioDenominazione extends AppCompatActivity{
         data = getIntent().getStringExtra("data");
         coin = getIntent().getIntExtra("coin", 0);
         punteggio = getIntent().getIntExtra("punteggio", 0);
+        punteggio = getIntent().getIntExtra("punteggio", 0);
 
         imageView = findViewById(R.id.image);
         cardView = findViewById(R.id.sfonoHelp);
@@ -206,8 +207,10 @@ public class EsercizioDenominazione extends AppCompatActivity{
     }
 
     public void reset(View view) {
-        recreate();
-    }
+        Intent i = new Intent(EsercizioDenominazione.this, MappaBambino.class);
+        i.putExtra("codice", codice);
+        startActivity(i);
+        finish();    }
 
     public void checkResul(View view) {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);

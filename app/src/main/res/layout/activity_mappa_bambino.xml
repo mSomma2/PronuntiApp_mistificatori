@@ -102,6 +102,7 @@
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:background="@drawable/stat"
+                android:onClick="rank"
                 android:contentDescription="@string/email" />
 
             <Space

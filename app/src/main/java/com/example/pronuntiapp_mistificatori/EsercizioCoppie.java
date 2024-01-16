@@ -124,8 +124,10 @@ public class EsercizioCoppie extends AppCompatActivity {
     }
 
     public void reset(View view) {
-        recreate();
-    }
+        Intent i = new Intent(EsercizioCoppie.this, MappaBambino.class);
+        i.putExtra("codice", codice);
+        startActivity(i);
+        finish();    }
 
     public void checkResul(View view) {
         if(Objects.equals(risposta, select)){

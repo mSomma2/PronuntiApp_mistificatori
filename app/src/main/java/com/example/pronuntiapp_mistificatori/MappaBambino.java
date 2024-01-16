@@ -334,4 +334,10 @@ public class MappaBambino extends AppCompatActivity {
         i.putExtra("codice", codiceBimbo);
         startActivity(i);
     }
+
+    public void rank(View view) {
+        Intent i = new Intent(MappaBambino.this, SelectScenario.class);
+        i.putExtra("codice", codiceBimbo);
+        startActivity(i);
+    }
 }

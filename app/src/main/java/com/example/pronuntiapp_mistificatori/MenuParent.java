@@ -63,7 +63,9 @@ public class MenuParent extends AppCompatActivity {
     }
 
     public void background(View view) {
-
+        Intent i = new Intent(MenuParent.this, SelectScenario.class);
+        i.putExtra("codice", codice);
+        startActivity(i);
     }
 
     public void start(View view) {

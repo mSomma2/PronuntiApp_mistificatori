@@ -232,7 +232,10 @@ public class EsercizioRipetizione extends AppCompatActivity {
     }
 
     public void reset(View view) {
-        recreate();
+        Intent i = new Intent(EsercizioRipetizione.this, MappaBambino.class);
+        i.putExtra("codice", codice);
+        startActivity(i);
+        finish();
     }
 
     public void riproduci(View view) {
