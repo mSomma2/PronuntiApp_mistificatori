@@ -79,25 +79,26 @@ public class SelectCharacter extends AppCompatActivity {
                         break;
                 }
                 adapter.notifyDataSetChanged();
+
+                DatabaseReference dbRef = database.getReference("logopedisti/ABC/Pazienti/" + codiceBimbo + "/personaggi/possesso/"+scenario);
+                dbRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot dateSnapshot : snapshot.getChildren()) {
+                            String a = dateSnapshot.getValue(String.class);
+                            int b = estraiNumeroDaStringa(a);
+                            //Toast.makeText(SelectCharacter.this, String.valueOf(b), Toast.LENGTH_SHORT).show();
+                            array.add(b-1);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
             }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-        DatabaseReference dbRef = database.getReference("logopedisti/ABC/Pazienti/" + codiceBimbo + "/personaggi/possesso");
-        dbRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dateSnapshot : snapshot.getChildren()) {
-                    String a = dateSnapshot.getValue(String.class);
-                    int b = estraiNumeroDaStringa(a);
-                    //Toast.makeText(SelectCharacter.this, String.valueOf(b), Toast.LENGTH_SHORT).show();
-                    array.add(b-1);
-                }
-            }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -200,12 +201,15 @@ public class SelectCharacter extends AppCompatActivity {
                 bottomButton.setBackgroundColor(ContextCompat.getColor(SelectCharacter.this, R.color.orange));
                 break;
             case 2:
-                DatabaseReference dbRef = database.getReference("logopedisti/ABC/Pazienti/" + codiceBimbo + "/personaggi/possesso");
+                DatabaseReference dbRef = database.getReference("logopedisti/ABC/Pazienti/" + codiceBimbo + "/personaggi/possesso/" + scenario);
                 String nuovoIndice = String.valueOf(System.currentTimeMillis());
                 String val2 = scenario + String.valueOf(character);
                 DatabaseReference ref2 = database.getReference("logopedisti/ABC/Pazienti/" + codiceBimbo + "/personaggi/selezionato");
                 ref2.setValue(val2);
                 dbRef.child(nuovoIndice).setValue(val2);
+
+                dbRef = database.getReference("logopedisti/ABC/Pazienti/" + codiceBimbo + "/coin");
+                dbRef.setValue(coin-20);
                 bottomButton.setText(getString(R.string.selected));
                 bottomButton.setBackgroundColor(ContextCompat.getColor(SelectCharacter.this, R.color.orange));
                 break;

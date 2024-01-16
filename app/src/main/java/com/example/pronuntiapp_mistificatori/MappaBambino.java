@@ -58,6 +58,27 @@ public class MappaBambino extends AppCompatActivity {
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
 
+        RelativeLayout sfondo = findViewById(R.id.sfondo);
+
+        DatabaseReference dbref = database.getReference("logopedisti/ABC/Pazienti/" + codiceBimbo);
+        dbref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String scenario = snapshot.child("scenario").getValue(String.class);
+                assert scenario != null;
+                if(scenario.equals("A")){
+                    sfondo.setBackground(ContextCompat.getDrawable(MappaBambino.this, R.drawable.sfondo_a));
+                }else if(scenario.equals("B")){
+                    sfondo.setBackground(ContextCompat.getDrawable(MappaBambino.this, R.drawable.sfondo_b));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         coinTextView = findViewById(R.id.coin);
         mappa = findViewById(R.id.map);
         scrollView = findViewById(R.id.scroll);
