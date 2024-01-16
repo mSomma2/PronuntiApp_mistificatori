@@ -43,13 +43,14 @@ public class EsercizioRipetizione extends AppCompatActivity {
 
     FirebaseDatabase database = FirebaseDatabase.getInstance("https://pronuntiapp---mistificatori-default-rtdb.europe-west1.firebasedatabase.app");
     FirebaseUser currentUser;
-    private String parola, outputFile, codice;
+    private String parola, outputFile, codice, data;
     private TextToSpeechManager textToSpeechManager;
     private MediaRecorder mediaRecorder;
     private MediaPlayer mediaPlayer;
     private ImageButton recAudio, playAudio;
     boolean isRecording = false;
     private DatabaseReference databaseReference;
+    private Integer coin, punteggio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +59,9 @@ public class EsercizioRipetizione extends AppCompatActivity {
 
         codice = getIntent().getStringExtra("codice");
         String esercizio = getIntent().getStringExtra("esercizio");
-        String data = getIntent().getStringExtra("data");
+        data = getIntent().getStringExtra("data");
+        coin = getIntent().getIntExtra("coin", 0);
+        punteggio = getIntent().getIntExtra("punteggio", 0);
 
         Initialize(esercizio);
 
@@ -82,7 +85,7 @@ public class EsercizioRipetizione extends AppCompatActivity {
 
         recAudio = findViewById(R.id.mic);
         playAudio = findViewById(R.id.playAudio);
-        databaseReference = database.getReference("logopedisti/ABC/Pazienti/" + codice + "/Esercizi/" + data);
+        databaseReference = database.getReference("logopedisti/ABC/Pazienti/" + codice);
     }
 
     private void Initialize(String es){
@@ -141,7 +144,7 @@ public class EsercizioRipetizione extends AppCompatActivity {
             @Override
             public void onError(int error) {
                 showAnswer(R.layout.dialog_wrong);
-                databaseReference.child("esito").setValue(false);
+                databaseReference.child("/Esercizi/" + data + "/esito").setValue(false);
                 provaCarica();
             }
 
@@ -153,14 +156,19 @@ public class EsercizioRipetizione extends AppCompatActivity {
                     mediaPlayer = MediaPlayer.create(EsercizioRipetizione.this, R.raw.correct);
                     mediaPlayer.start();
                     showAnswer(R.layout.dialog_correct);
-                    databaseReference.child("esito").setValue(true);
+                    databaseReference.child("/Esercizi/" + data + "/esito").setValue(true);
+                    coin+=10;
+                    punteggio+=10;
+                    databaseReference.child("coin").setValue(coin);
+                    databaseReference.child("punteggio").setValue(punteggio);
+
                     provaCarica();
 
                 }else{
                     mediaPlayer = MediaPlayer.create(EsercizioRipetizione.this, R.raw.wrong);
                     mediaPlayer.start();
                     showAnswer(R.layout.dialog_wrong);
-                    databaseReference.child("esito").setValue(false);
+                    databaseReference.child("/Esercizi/" + data + "/esito").setValue(false);
                     provaCarica();
                 }
                 // 'matches' contiene il testo riconosciuto
@@ -217,7 +225,7 @@ public class EsercizioRipetizione extends AppCompatActivity {
         uploadTask.addOnProgressListener(taskSnapshot -> {
         }).addOnSuccessListener(taskSnapshot -> audioRef.getDownloadUrl().addOnSuccessListener(uri -> {
             String audioUrl = uri.toString();
-            databaseReference.child("audio").setValue(audioUrl);
+            databaseReference.child("/Esercizi/" + data + "/audio").setValue(audioUrl);
             Log.d("URL", audioUrl);
         })).addOnFailureListener(exception -> {
         });

@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -40,12 +41,13 @@ public class MappaBambino extends AppCompatActivity {
     private Map<Button, Drawable> originalButtonDrawables = new HashMap<>();
     private String codiceBimbo, gameSelect;
     private LinearLayout mappa;
+    private TextView coinTextView;
     int cont=1, numButton = 0;
     private ScrollView scrollView;
     private ImageView personaggio;
     private float initialX, initialY;
     private Intent i = null;
-    private Integer es;
+    private Integer es, coin, punteggio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +58,7 @@ public class MappaBambino extends AppCompatActivity {
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
 
+        coinTextView = findViewById(R.id.coin);
         mappa = findViewById(R.id.map);
         scrollView = findViewById(R.id.scroll);
         databaseReference = database.getReference("logopedisti/ABC/Pazienti/" + codiceBimbo + "/Esercizi/");
@@ -136,7 +139,26 @@ public class MappaBambino extends AppCompatActivity {
             }
         });
 
-        personaggio = findViewById(R.id.personaggio);  // Sostituisci con l'id effettivo della tua ImageView
+        personaggio = findViewById(R.id.personaggio);
+
+        DatabaseReference dbRef = database.getReference("logopedisti/ABC/Pazienti/" + codiceBimbo);
+        dbRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                coin = snapshot.child("coin").getValue(Integer.class);
+                coinTextView.setText(String.valueOf(coin));
+                String pers = snapshot.child("personaggi/selezionato").getValue(String.class);
+                punteggio = snapshot.child("punteggio").getValue(Integer.class);
+                getCharacter getCharacter = new getCharacter();
+                assert pers != null;
+                personaggio.setImageResource(getCharacter.get(pers));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         personaggio.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -254,6 +276,8 @@ public class MappaBambino extends AppCompatActivity {
                                             i.putExtra("esercizio", es.toString());
                                             i.putExtra("codice", codiceBimbo);
                                             i.putExtra("data", gameSelect + "-2024");
+                                            i.putExtra("coin", coin);
+                                            i.putExtra("punteggio", punteggio);
                                             startActivity(i);
                                             finish();
                                         }
@@ -282,5 +306,11 @@ public class MappaBambino extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void character(View view) {
+        Intent i = new Intent(MappaBambino.this, SelectCharacter.class);
+        i.putExtra("codice", codiceBimbo);
+        startActivity(i);
     }
 }

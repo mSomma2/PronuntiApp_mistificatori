@@ -55,10 +55,11 @@ public class EsercizioDenominazione extends AppCompatActivity{
     int count = 0;
     private MediaRecorder mediaRecorder;
     private MediaPlayer mediaPlayer;
-    private String outputFile;
+    private String outputFile, data;
     private ImageButton recAudio, playAudio;
     boolean isRecording = false;
     private DatabaseReference databaseReference;
+    private Integer coin, punteggio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +68,9 @@ public class EsercizioDenominazione extends AppCompatActivity{
 
         codice = getIntent().getStringExtra("codice");
         String esercizio = getIntent().getStringExtra("esercizio");
-        String data = getIntent().getStringExtra("data");
+        data = getIntent().getStringExtra("data");
+        coin = getIntent().getIntExtra("coin", 0);
+        punteggio = getIntent().getIntExtra("punteggio", 0);
 
         imageView = findViewById(R.id.image);
         cardView = findViewById(R.id.sfonoHelp);
@@ -93,7 +96,7 @@ public class EsercizioDenominazione extends AppCompatActivity{
         mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
         mediaRecorder.setOutputFile(outputFile);
 
-        databaseReference = database.getReference("logopedisti/ABC/Pazienti/" + codice + "/Esercizi/" + data);
+        databaseReference = database.getReference("logopedisti/ABC/Pazienti/" + codice);
     }
 
     void Initialize(String es){
@@ -241,7 +244,7 @@ public class EsercizioDenominazione extends AppCompatActivity{
             @Override
             public void onError(int error) {
                 showAnswer(R.layout.dialog_wrong);
-                databaseReference.child("esito").setValue(false);
+                databaseReference.child("/Esercizi/" + data + "/esito").setValue(false);
                 provaCarica();
             }
 
@@ -253,14 +256,18 @@ public class EsercizioDenominazione extends AppCompatActivity{
                     mediaPlayer = MediaPlayer.create(EsercizioDenominazione.this, R.raw.correct);
                     mediaPlayer.start();
                     showAnswer(R.layout.dialog_correct);
-                    databaseReference.child("esito").setValue(true);
+                    databaseReference.child("/Esercizi/" + data + "/esito").setValue(true);
+                    coin+=10;
+                    punteggio+=10;
+                    databaseReference.child("coin").setValue(coin);
+                    databaseReference.child("punteggio").setValue(punteggio);
                     provaCarica();
 
                 }else{
                     mediaPlayer = MediaPlayer.create(EsercizioDenominazione.this, R.raw.wrong);
                     mediaPlayer.start();
                     showAnswer(R.layout.dialog_wrong);
-                    databaseReference.child("esito").setValue(false);
+                    databaseReference.child("/Esercizi/" + data + "/esito").setValue(false);
                     provaCarica();
                 }
                 // 'matches' contiene il testo riconosciuto
@@ -321,7 +328,7 @@ public class EsercizioDenominazione extends AppCompatActivity{
         uploadTask.addOnProgressListener(taskSnapshot -> {
         }).addOnSuccessListener(taskSnapshot -> audioRef.getDownloadUrl().addOnSuccessListener(uri -> {
             String audioUrl = uri.toString();
-            databaseReference.child("audio").setValue(audioUrl);
+            databaseReference.child("/Esercizi/" + data + "/audio").setValue(audioUrl);
             Log.d("URL", audioUrl);
         })).addOnFailureListener(exception -> {
         });

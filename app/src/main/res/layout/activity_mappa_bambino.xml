@@ -33,10 +33,10 @@
                 android:contentDescription="@string/coin" />
 
             <TextView
+                android:id="@+id/coin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:text="20"/>
+                android:textSize="20sp" />
 
         </LinearLayout>
         </FrameLayout>
@@ -75,7 +75,8 @@
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:background="@drawable/character_green"
-                android:contentDescription="@string/correct" />
+                android:contentDescription="@string/correct"
+                android:onClick="character"/>
 
             <Space
                 android:layout_width="0dp"

@@ -29,12 +29,12 @@ import java.util.Objects;
 public class EsercizioCoppie extends AppCompatActivity {
 
     private ImageView img1, img2;
-    private String parola, codice;
+    private String parola, codice, data;
     FirebaseDatabase database = FirebaseDatabase.getInstance("https://pronuntiapp---mistificatori-default-rtdb.europe-west1.firebasedatabase.app");
     FirebaseUser currentUser;
     private ImageButton conf;
     private DatabaseReference databaseReference;
-    Integer risposta, select;
+    Integer risposta, select, coin, punteggio;
     private TextToSpeechManager textToSpeechManager;
     MediaPlayer mediaPlayer;
 
@@ -47,7 +47,9 @@ public class EsercizioCoppie extends AppCompatActivity {
 
         codice = getIntent().getStringExtra("codice");
         String esercizio = getIntent().getStringExtra("esercizio");
-        String data = getIntent().getStringExtra("data");
+        data = getIntent().getStringExtra("data");
+        coin = getIntent().getIntExtra("coin", 0);
+        punteggio = getIntent().getIntExtra("punteggio", 0);
 
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         currentUser = firebaseAuth.getCurrentUser();
@@ -59,7 +61,7 @@ public class EsercizioCoppie extends AppCompatActivity {
         conf.setEnabled(false);
 
         Initialize(esercizio);
-        databaseReference = database.getReference("logopedisti/ABC/Pazienti/" + codice + "/Esercizi/" + data);
+        databaseReference = database.getReference("logopedisti/ABC/Pazienti/" + codice);
         textToSpeechManager = new TextToSpeechManager(this);
     }
 
@@ -130,12 +132,16 @@ public class EsercizioCoppie extends AppCompatActivity {
             mediaPlayer = MediaPlayer.create(EsercizioCoppie.this, R.raw.correct);
             mediaPlayer.start();
             showAnswer(R.layout.dialog_correct);
-            databaseReference.child("esito").setValue(true);
+            databaseReference.child("/Esercizi/" + data + "/esito").setValue(true);
+            coin+=10;
+            punteggio+=10;
+            databaseReference.child("coin").setValue(coin);
+            databaseReference.child("punteggio").setValue(punteggio);
         }else{
             mediaPlayer = MediaPlayer.create(EsercizioCoppie.this, R.raw.wrong);
             mediaPlayer.start();
             showAnswer(R.layout.dialog_wrong);
-            databaseReference.child("esito").setValue(false);
+            databaseReference.child("/Esercizi/" + data + "/esito").setValue(false);
         }
     }
 

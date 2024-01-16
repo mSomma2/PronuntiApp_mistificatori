@@ -41,4 +41,8 @@
     <string name="cancelButton">Cancella</string>
     <string name="confirmButtno">conferma</string>
     <string name="coin">monete</string>
+    <string name="selected">SELEZIONATO</string>
+    <string name="select">SELEZIONA</string>
+    <string name="poor">Non hai abbastanza monete</string>
+
 </resources>

@@ -40,4 +40,7 @@
     <string name="cancelButton">Cancel</string>
     <string name="confirmButtno">confirm</string>
     <string name="coin">coins</string>
+    <string name="selected">SELECTED</string>
+    <string name="select">SELECT</string>
+    <string name="poor">You don\'t have enough coin</string>
 </resources>

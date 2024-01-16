@@ -18,6 +18,9 @@
         android:theme="@style/Theme.PronuntiAppMistificatori"
         tools:targetApi="34">
         <activity
+            android:name=".SelectCharacter"
+            android:exported="false" />
+        <activity
             android:name=".MappaBambino"
             android:exported="false" />
         <activity
