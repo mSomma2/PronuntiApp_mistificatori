@@ -18,6 +18,12 @@
         android:theme="@style/Theme.PronuntiAppMistificatori"
         tools:targetApi="34">
         <activity
+            android:name=".CorrezioneDenominazione"
+            android:exported="false" />
+        <activity
+            android:name=".CorrezioneEsercizi"
+            android:exported="false" />
+        <activity
             android:name=".rank"
             android:exported="false" />
         <activity

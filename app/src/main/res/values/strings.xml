@@ -43,4 +43,7 @@
     <string name="selected">SELECTED</string>
     <string name="select">SELECT</string>
     <string name="poor">You don\'t have enough coin</string>
+    <string name="modCorrezioneTitolo">Edit correction</string>
+    <string name="modCorrezioneMsg">Are you sure you want to edit the correction?</string>
+    <string name="yes">yes</string>
 </resources>

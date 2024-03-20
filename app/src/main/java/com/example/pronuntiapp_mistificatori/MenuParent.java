@@ -72,7 +72,7 @@ public class MenuParent extends AppCompatActivity {
         Intent i = new Intent(MenuParent.this, MappaBambino.class);
 
 
-        i.putExtra("codice", "001");
+        i.putExtra("codice", codice);
         startActivity(i);
     }
 
@@ -80,6 +80,10 @@ public class MenuParent extends AppCompatActivity {
     }
 
     public void correction(View view) {
+        Intent i = new Intent(MenuParent.this, CorrezioneEsercizi.class);
+        i.putExtra("codice", codice);
+        i.putExtra("nome", nome);
+        startActivity(i);
     }
 
     public void deleteKid(View view) {

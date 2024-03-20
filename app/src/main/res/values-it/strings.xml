@@ -44,5 +44,8 @@
     <string name="selected">SELEZIONATO</string>
     <string name="select">SELEZIONA</string>
     <string name="poor">Non hai abbastanza monete</string>
+    <string name="modCorrezioneTitolo">Modifica correzione</string>
+    <string name="modCorrezioneMsg">Sei sicuro di modificare la correzione?</string>
+    <string name="yes">si</string>
 
 </resources>
