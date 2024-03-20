@@ -18,8 +18,6 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -54,11 +52,6 @@ public class CorrezioneRipetizione extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_correzione_ripetizione);
 
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true); // Abilita il pulsante per tornare indietro
-        }
-
         codice = getIntent().getStringExtra("codice");
         String esercizio = getIntent().getStringExtra("esercizio");
         data = getIntent().getStringExtra("data");
@@ -67,6 +60,12 @@ public class CorrezioneRipetizione extends AppCompatActivity {
         punteggio = getIntent().getIntExtra("punteggio", 0);
         esito = getIntent().getBooleanExtra("esito", false);
         nome = getIntent().getStringExtra("nome");
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);// Abilita il pulsante per tornare indietro
+            actionBar.setTitle(data);
+        }
 
         correct = findViewById(R.id.correct);
         wrong = findViewById(R.id.wrong);

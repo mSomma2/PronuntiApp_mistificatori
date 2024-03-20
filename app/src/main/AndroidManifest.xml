@@ -18,6 +18,9 @@
         android:theme="@style/Theme.PronuntiAppMistificatori"
         tools:targetApi="34">
         <activity
+            android:name=".CorrezioneCoppie"
+            android:exported="false" />
+        <activity
             android:name=".CorrezioneRipetizione"
             android:exported="false" />
         <activity

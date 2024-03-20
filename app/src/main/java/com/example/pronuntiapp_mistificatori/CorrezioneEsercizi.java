@@ -38,18 +38,16 @@ public class CorrezioneEsercizi extends AppCompatActivity {
         ArrayList<Integer> tipologie = new ArrayList<>();
         setContentView(R.layout.activity_correzione_esercizi);
 
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true); // Abilita il pulsante per tornare indietro
-        }
-
         codiceBimbo = getIntent().getStringExtra("codice");
         nome = getIntent().getStringExtra("nome");
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
 
-        TextView nomeTV = findViewById(R.id.nomeBimbo);
-        nomeTV.setText(nome);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true); // Abilita il pulsante per tornare indietro
+            actionBar.setTitle(CorrezioneEsercizi.this.getString(R.string.correction) + " - " + nome);
+        }
 
         LinearLayout lista = findViewById(R.id.listaCorrezioni);
         DatabaseReference databaseReference = database.getReference("logopedisti/ABC/Pazienti/" + codiceBimbo + "/Esercizi/");
@@ -101,43 +99,66 @@ public class CorrezioneEsercizi extends AppCompatActivity {
                             // Aggiungi il codice per leggere la tipologia dall'altro percorso
                             if(tipo != null) {
                                 if (tipologie.get(tipo-1) == 1){
-                                    textViewTipo.setText("TIPO: Denominazione");
+                                    textViewTipo.setText(CorrezioneEsercizi.this.getString(R.string.denominazione));
                                     childView.setOnClickListener(v -> {
-                                        String url = dateSnapshot.child("audio").getValue(String.class);
-                                        Intent i = new Intent(CorrezioneEsercizi.this, CorrezioneDenominazione.class);
-                                        i.putExtra("esercizio", tipo.toString());
-                                        i.putExtra("codice", codiceBimbo);
-                                        i.putExtra("data", date);
-                                        i.putExtra("url", url);
-                                        i.putExtra("esito", esito);
-                                        i.putExtra("nome", nome);
-                                        i.putExtra("coin", coin);
-                                        i.putExtra("punteggio", punteggio);
-                                        startActivity(i);
-                                        finish();
+                                        if(esito==null){
+                                            Toast.makeText(CorrezioneEsercizi.this, "esercizio non ancora svolto", Toast.LENGTH_SHORT).show();
+                                        }else {
+                                            String url = dateSnapshot.child("audio").getValue(String.class);
+                                            Intent i = new Intent(CorrezioneEsercizi.this, CorrezioneDenominazione.class);
+                                            i.putExtra("esercizio", tipo.toString());
+                                            i.putExtra("codice", codiceBimbo);
+                                            i.putExtra("data", date);
+                                            i.putExtra("url", url);
+                                            i.putExtra("esito", esito);
+                                            i.putExtra("nome", nome);
+                                            i.putExtra("coin", coin);
+                                            i.putExtra("punteggio", punteggio);
+                                            startActivity(i);
+                                            finish();
+                                        }
                                     });
                                 }
                                 else if (tipologie.get(tipo-1) == 2){
-                                    textViewTipo.setText("TIPO: Sequenze");
+                                    textViewTipo.setText(CorrezioneEsercizi.this.getString(R.string.sequenze));
                                     childView.setOnClickListener(v -> {
-                                        String url = dateSnapshot.child("audio").getValue(String.class);
-                                        Intent i = new Intent(CorrezioneEsercizi.this, CorrezioneRipetizione.class);
-                                        i.putExtra("esercizio", tipo.toString());
-                                        i.putExtra("codice", codiceBimbo);
-                                        i.putExtra("data", date);
-                                        i.putExtra("url", url);
-                                        i.putExtra("esito", esito);
-                                        i.putExtra("nome", nome);
-                                        i.putExtra("coin", coin);
-                                        i.putExtra("punteggio", punteggio);
-                                        startActivity(i);
-                                        finish();
+                                        if(esito==null){
+                                            Toast.makeText(CorrezioneEsercizi.this, CorrezioneEsercizi.this.getString(R.string.esNonFatto), Toast.LENGTH_SHORT).show();
+                                        }else {
+                                            String url = dateSnapshot.child("audio").getValue(String.class);
+                                            Intent i = new Intent(CorrezioneEsercizi.this, CorrezioneRipetizione.class);
+                                            i.putExtra("esercizio", tipo.toString());
+                                            i.putExtra("codice", codiceBimbo);
+                                            i.putExtra("data", date);
+                                            i.putExtra("url", url);
+                                            i.putExtra("esito", esito);
+                                            i.putExtra("nome", nome);
+                                            i.putExtra("coin", coin);
+                                            i.putExtra("punteggio", punteggio);
+                                            startActivity(i);
+                                            finish();
+                                        }
                                     });
                                 }
                                 else if (tipologie.get(tipo-1) == 3){
-                                    textViewTipo.setText("TIPO: Riconoscimento");
+                                    textViewTipo.setText(CorrezioneEsercizi.this.getString(R.string.riconoscimento));
                                     childView.setOnClickListener(v -> {
-
+                                        if(esito==null){
+                                            Toast.makeText(CorrezioneEsercizi.this, CorrezioneEsercizi.this.getString(R.string.esNonFatto), Toast.LENGTH_SHORT).show();
+                                        }else {
+                                            String url = dateSnapshot.child("audio").getValue(String.class);
+                                            Intent i = new Intent(CorrezioneEsercizi.this, CorrezioneCoppie.class);
+                                            i.putExtra("esercizio", tipo.toString());
+                                            i.putExtra("codice", codiceBimbo);
+                                            i.putExtra("data", date);
+                                            i.putExtra("url", url);
+                                            i.putExtra("esito", esito);
+                                            i.putExtra("nome", nome);
+                                            i.putExtra("coin", coin);
+                                            i.putExtra("punteggio", punteggio);
+                                            startActivity(i);
+                                            finish();
+                                        }
                                     });
                                 }
 
@@ -149,6 +170,10 @@ public class CorrezioneEsercizi extends AppCompatActivity {
                                     bordi.setForeground(getResources().getDrawable(R.drawable.border_drawable_green));
                                 }
                                 else if (esito != null) result.setImageResource(R.drawable.wrong);
+                                else {
+                                    result.setVisibility(View.GONE);
+                                    bordi.setForeground(getResources().getDrawable(R.drawable.border_drawable_black));
+                                }
 
 
 

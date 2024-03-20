@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CorrezioneCoppie">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/parola"
+            android:layout_marginTop="80dp"
+            android:textSize="30sp"/>
+
+        <Button
+            android:id="@+id/btnPlayPause"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:onClick="playAudio"
+            android:background="@drawable/play" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:orientation="horizontal">
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+
+            <ImageView
+                android:id="@+id/img1"
+                android:layout_width="180dp"
+                android:layout_height="180dp"
+                android:src="@drawable/logo_svg"
+                android:layout_weight="1"
+                android:contentDescription="@string/imgEs1"
+                android:padding="5dp"/>
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+
+            <ImageView
+                android:id="@+id/img2"
+                android:layout_width="180dp"
+                android:layout_height="180dp"
+                android:src="@drawable/logo_svg"
+                android:layout_weight="1"
+                android:padding="5dp"
+                android:contentDescription="@string/imgEs1"/>
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/correzione"
+            android:layout_marginTop="50dp"
+            android:textStyle="bold"
+            android:textSize="16sp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:gravity="center_horizontal">
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardWrong"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                app:cardCornerRadius="100dp"
+                app:cardBackgroundColor="@color/red">
+
+                <ImageButton
+                    android:id="@+id/cance"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/clear"
+                    android:scaleType="fitCenter"
+                    android:layout_gravity="center"
+                    android:onClick="showMsg"
+                    android:contentDescription="@string/cancelButton"
+                    android:background="?android:selectableItemBackgroundBorderless"
+                    app:tint="@color/white"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardCorrect"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                app:cardCornerRadius="100dp"
+                app:cardBackgroundColor="@color/green_light">
+
+                <ImageButton
+                    android:id="@+id/confirm"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/check"
+                    android:scaleType="fitCenter"
+                    android:layout_gravity="center"
+                    android:onClick="showMsg"
+                    android:contentDescription="@string/confirmButtno"
+                    android:background="?android:selectableItemBackgroundBorderless"
+                    app:tint="@color/white"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

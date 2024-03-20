@@ -49,4 +49,10 @@
     <string name="parola">Word:</string>
     <string name="registrazione">Recording:</string>
     <string name="correzione">Auto correction:</string>
+    <string name="esNonFatto">Exercise not yet completed</string>
+    <string name="noCorrezione">Non-editable correction</string>
+    <string name="denominazione">TYPE: Denomination</string>
+    <string name="sequenze">TYPE: Sequences</string>
+    <string name="riconoscimento">TYPE: Recognition</string>
+
 </resources>
