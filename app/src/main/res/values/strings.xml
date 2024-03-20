@@ -46,4 +46,7 @@
     <string name="modCorrezioneTitolo">Edit correction</string>
     <string name="modCorrezioneMsg">Are you sure you want to edit the correction?</string>
     <string name="yes">yes</string>
+    <string name="parola">Word:</string>
+    <string name="registrazione">Recording:</string>
+    <string name="correzione">Auto correction:</string>
 </resources>

@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Space;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -28,6 +29,7 @@ public class CorrezioneEsercizi extends AppCompatActivity {
 
     private final FirebaseDatabase database = FirebaseDatabase.getInstance("https://pronuntiapp---mistificatori-default-rtdb.europe-west1.firebasedatabase.app");
     private String codiceBimbo, nome;
+    private Integer coin, punteggio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +54,26 @@ public class CorrezioneEsercizi extends AppCompatActivity {
         LinearLayout lista = findViewById(R.id.listaCorrezioni);
         DatabaseReference databaseReference = database.getReference("logopedisti/ABC/Pazienti/" + codiceBimbo + "/Esercizi/");
         DatabaseReference tipoReference = database.getReference("logopedisti/ABC/esercizi/");
+
+        DatabaseReference dbCoin = database.getReference("logopedisti/ABC/Pazienti/" + codiceBimbo);
+        dbCoin.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                if (snapshot.exists()) {
+                    coin = snapshot.child("coin").getValue(Integer.class);
+                    punteggio = snapshot.child("punteggio").getValue(Integer.class);
+                } else {
+                    coin = 0;
+                    punteggio = 0;
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         tipoReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -89,6 +111,8 @@ public class CorrezioneEsercizi extends AppCompatActivity {
                                         i.putExtra("url", url);
                                         i.putExtra("esito", esito);
                                         i.putExtra("nome", nome);
+                                        i.putExtra("coin", coin);
+                                        i.putExtra("punteggio", punteggio);
                                         startActivity(i);
                                         finish();
                                     });
@@ -96,7 +120,18 @@ public class CorrezioneEsercizi extends AppCompatActivity {
                                 else if (tipologie.get(tipo-1) == 2){
                                     textViewTipo.setText("TIPO: Sequenze");
                                     childView.setOnClickListener(v -> {
-
+                                        String url = dateSnapshot.child("audio").getValue(String.class);
+                                        Intent i = new Intent(CorrezioneEsercizi.this, CorrezioneRipetizione.class);
+                                        i.putExtra("esercizio", tipo.toString());
+                                        i.putExtra("codice", codiceBimbo);
+                                        i.putExtra("data", date);
+                                        i.putExtra("url", url);
+                                        i.putExtra("esito", esito);
+                                        i.putExtra("nome", nome);
+                                        i.putExtra("coin", coin);
+                                        i.putExtra("punteggio", punteggio);
+                                        startActivity(i);
+                                        finish();
                                     });
                                 }
                                 else if (tipologie.get(tipo-1) == 3){

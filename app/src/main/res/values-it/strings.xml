@@ -47,5 +47,8 @@
     <string name="modCorrezioneTitolo">Modifica correzione</string>
     <string name="modCorrezioneMsg">Sei sicuro di modificare la correzione?</string>
     <string name="yes">si</string>
+    <string name="parola">Parola:</string>
+    <string name="registrazione">Registrazione:</string>
+    <string name="correzione">Correzione automatica:</string>
 
 </resources>

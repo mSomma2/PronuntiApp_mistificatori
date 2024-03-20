@@ -4,27 +4,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CorrezioneDenominazione">
+    tools:context=".CorrezioneRipetizione">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
+        android:gravity="center_horizontal"
         android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/image"
-            android:layout_width="250dp"
-            android:layout_height="250dp"
-            android:contentDescription="@string/imgEs1"
-            android:src="@drawable/logo_svg" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/parola"
+            android:layout_marginTop="100dp"
+            android:textSize="30sp"/>
+
+        <Button
+            android:id="@+id/btnPlayPause"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:onClick="playAudio"
+            android:background="@drawable/play" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/registrazione"
+            android:layout_marginTop="100dp"
+            android:textSize="30sp"/>
 
         <androidx.cardview.widget.CardView
             android:layout_width="80dp"
             android:layout_height="80dp"
             app:cardCornerRadius="100dp"
-            app:cardBackgroundColor="@color/green"
-            android:layout_marginTop="50dp">
+            app:cardBackgroundColor="@color/green">
 
             <ImageButton
                 android:id="@+id/playAudio"
@@ -33,8 +46,8 @@
                 android:src="@drawable/play"
                 android:scaleType="fitCenter"
                 android:layout_gravity="center"
-                android:contentDescription="@string/playAudio"
                 android:onClick="riproduci"
+                android:contentDescription="@string/playAudio"
                 android:background="?android:selectableItemBackgroundBorderless"
                 app:tint="@color/white"/>
 
@@ -51,7 +64,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="15dp"
             android:gravity="center_horizontal">
 
             <Space
@@ -73,8 +86,8 @@
                     android:src="@drawable/clear"
                     android:scaleType="fitCenter"
                     android:layout_gravity="center"
-                    android:onClick="setWrong"
                     android:contentDescription="@string/cancelButton"
+                    android:onClick="setWrong"
                     android:background="?android:selectableItemBackgroundBorderless"
                     app:tint="@color/white"/>
 
@@ -112,6 +125,7 @@
                 android:layout_weight="1"/>
 
         </LinearLayout>
+
 
     </LinearLayout>
 

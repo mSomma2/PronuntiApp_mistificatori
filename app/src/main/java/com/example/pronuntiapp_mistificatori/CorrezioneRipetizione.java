@@ -21,7 +21,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -32,23 +31,28 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
 
-public class CorrezioneDenominazione extends AppCompatActivity {
-    private ImageView imageView;
+public class CorrezioneRipetizione extends AppCompatActivity {
+
     FirebaseDatabase database = FirebaseDatabase.getInstance("https://pronuntiapp---mistificatori-default-rtdb.europe-west1.firebasedatabase.app");
     FirebaseUser currentUser;
     private String parola, codice, url;
     private TextToSpeechManager textToSpeechManager;
+    private CardView cardView;
+    int count = 0;
+    private MediaRecorder mediaRecorder;
     private MediaPlayer mediaPlayer;
-    private String data, nome;
-    private ImageButton playAudio, wrong, correct;
+    private String outputFile, data, nome;
+    private ImageButton recAudio, playAudio, wrong, correct;
     private CardView cardWrong, cardCorrect;
+    boolean isRecording = false;
+    private DatabaseReference databaseReference;
     private Integer coin, punteggio;
     private boolean esito;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_correzione_denominazione);
+        setContentView(R.layout.activity_correzione_ripetizione);
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -64,24 +68,23 @@ public class CorrezioneDenominazione extends AppCompatActivity {
         esito = getIntent().getBooleanExtra("esito", false);
         nome = getIntent().getStringExtra("nome");
 
-
-        imageView = findViewById(R.id.image);
-        playAudio = findViewById(R.id.playAudio);
-        wrong = findViewById(R.id.wrong);
         correct = findViewById(R.id.correct);
+        wrong = findViewById(R.id.wrong);
         cardCorrect = findViewById(R.id.cardCorrect);
         cardWrong = findViewById(R.id.cardWrong);
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        currentUser = firebaseAuth.getCurrentUser();
-        textToSpeechManager = new TextToSpeechManager(this);
 
         Initialize(esercizio);
+
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        currentUser = firebaseAuth.getCurrentUser();
+
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.RECORD_AUDIO) !=
                 PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO}, 1);
         }
 
-        DatabaseReference databaseReference = database.getReference("logopedisti/ABC/Pazienti/" + codice);
+        textToSpeechManager = new TextToSpeechManager(this);
+
         mediaPlayer = new MediaPlayer();
         try {
             mediaPlayer.setDataSource(url);
@@ -94,7 +97,7 @@ public class CorrezioneDenominazione extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            Intent i = new Intent(CorrezioneDenominazione.this, CorrezioneEsercizi.class);
+            Intent i = new Intent(CorrezioneRipetizione.this, CorrezioneEsercizi.class);
             i.putExtra("codice", codice);
             i.putExtra("nome", nome);
             startActivity(i);
@@ -104,9 +107,10 @@ public class CorrezioneDenominazione extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    void Initialize(String es){
+    private void Initialize(String es){
         String percorso = "logopedisti/ABC/esercizi/" + es;
         DatabaseReference myRef = database.getReference(percorso);
+
         if(esito){
             correct.setEnabled(false);
             cardWrong.setCardBackgroundColor(ContextCompat.getColor(this, android.R.color.darker_gray));
@@ -119,11 +123,7 @@ public class CorrezioneDenominazione extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    String urlImg = dataSnapshot.child("immagine").getValue(String.class);
                     parola = dataSnapshot.child("parola").getValue(String.class);
-                    Glide.with(CorrezioneDenominazione.this)
-                            .load(urlImg)
-                            .into(imageView);
                 } else {
                     System.out.println("Il dato non esiste nel percorso specificato.");
                 }
@@ -137,7 +137,6 @@ public class CorrezioneDenominazione extends AppCompatActivity {
     }
 
     public void riproduci(View view) {
-
         if (!mediaPlayer.isPlaying()) {
             try {
                 // Avvia la riproduzione
@@ -148,11 +147,16 @@ public class CorrezioneDenominazione extends AppCompatActivity {
         }
     }
 
+    public void playAudio(View view) {
+        textToSpeechManager.speak(parola, 1f);
+    }
+
+
     private void dialog(int c){
-        AlertDialog.Builder builder = new AlertDialog.Builder(CorrezioneDenominazione.this);
-        builder.setTitle(CorrezioneDenominazione.this.getString(R.string.modCorrezioneTitolo))
-                .setMessage(CorrezioneDenominazione.this.getString(R.string.modCorrezioneMsg))
-                .setPositiveButton(CorrezioneDenominazione.this.getString(R.string.yes), new DialogInterface.OnClickListener() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(CorrezioneRipetizione.this);
+        builder.setTitle(CorrezioneRipetizione.this.getString(R.string.modCorrezioneTitolo))
+                .setMessage(CorrezioneRipetizione.this.getString(R.string.modCorrezioneMsg))
+                .setPositiveButton(CorrezioneRipetizione.this.getString(R.string.yes), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // Azioni da eseguire quando l'utente risponde "sì"
@@ -160,8 +164,8 @@ public class CorrezioneDenominazione extends AppCompatActivity {
                         DatabaseReference dbCoin = database.getReference("logopedisti/ABC/Pazienti/" + codice);
                         if(c==1){ //setWrong
                             db.child("esito").setValue(false);
-                            cardCorrect.setCardBackgroundColor(ContextCompat.getColor(CorrezioneDenominazione.this, android.R.color.darker_gray));
-                            cardWrong.setCardBackgroundColor(ContextCompat.getColor(CorrezioneDenominazione.this, android.R.color.holo_red_light));
+                            cardCorrect.setCardBackgroundColor(ContextCompat.getColor(CorrezioneRipetizione.this, android.R.color.darker_gray));
+                            cardWrong.setCardBackgroundColor(ContextCompat.getColor(CorrezioneRipetizione.this, android.R.color.holo_red_light));
                             wrong.setEnabled(false);
                             correct.setEnabled(true);
                             coin -= 10;
@@ -172,8 +176,8 @@ public class CorrezioneDenominazione extends AppCompatActivity {
                             dbCoin.child("punteggio").setValue(punteggio);
                         }else{ //setCorrect
                             db.child("esito").setValue(true);
-                            cardWrong.setCardBackgroundColor(ContextCompat.getColor(CorrezioneDenominazione.this, android.R.color.darker_gray));
-                            cardCorrect.setCardBackgroundColor(ContextCompat.getColor(CorrezioneDenominazione.this, android.R.color.holo_green_light));
+                            cardWrong.setCardBackgroundColor(ContextCompat.getColor(CorrezioneRipetizione.this, android.R.color.darker_gray));
+                            cardCorrect.setCardBackgroundColor(ContextCompat.getColor(CorrezioneRipetizione.this, android.R.color.holo_green_light));
                             correct.setEnabled(false);
                             wrong.setEnabled(true);
                             coin += 10;
