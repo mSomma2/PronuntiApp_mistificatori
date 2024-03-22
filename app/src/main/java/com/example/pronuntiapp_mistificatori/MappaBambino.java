@@ -67,9 +67,9 @@ public class MappaBambino extends AppCompatActivity {
                 String scenario = snapshot.child("scenario").getValue(String.class);
                 assert scenario != null;
                 if(scenario.equals("A")){
-                    sfondo.setBackground(ContextCompat.getDrawable(MappaBambino.this, R.drawable.sfondo1));
+                    sfondo.setBackground(ContextCompat.getDrawable(MappaBambino.this, R.drawable.background1));
                 }else if(scenario.equals("B")){
-                    sfondo.setBackground(ContextCompat.getDrawable(MappaBambino.this, R.drawable.sfondo2));
+                    sfondo.setBackground(ContextCompat.getDrawable(MappaBambino.this, R.drawable.background2));
                 }
             }
 

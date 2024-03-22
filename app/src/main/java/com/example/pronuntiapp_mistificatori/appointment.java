@@ -3,6 +3,11 @@ package com.example.pronuntiapp_mistificatori;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,7 +20,11 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
+
 public class appointment extends AppCompatActivity {
+    private String codiceBimbo;
     private static final String TAG = "MainActivity";
     private final FirebaseDatabase database = FirebaseDatabase.getInstance("https://pronuntiapp---mistificatori-default-rtdb.europe-west1.firebasedatabase.app");
     private RecyclerView recyclerView;
@@ -23,11 +32,13 @@ public class appointment extends AppCompatActivity {
     private List<appointment> appointmentList;
     private DatabaseReference databaseReference;
 
+
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_appointment);
 
         // Initialize RecyclerView
         recyclerView = findViewById(R.id.recyclerView);
@@ -37,7 +48,8 @@ public class appointment extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // Initialize Firebase
-        databaseReference = FirebaseDatabase.getInstance().getReference("appointments");
+
+        DatabaseReference databaseReference = database.getReference("logopedisti/ABC/Pazienti/" + codiceBimbo);
 
         appointmentList = new ArrayList<>();
         appointmentAdapter = new AppointmentAdapter(appointmentList);
@@ -66,7 +78,7 @@ public class appointment extends AppCompatActivity {
     }
 }
 
-public class Appointment {
+class Appointment {
     private String date;
 
     public Appointment() {

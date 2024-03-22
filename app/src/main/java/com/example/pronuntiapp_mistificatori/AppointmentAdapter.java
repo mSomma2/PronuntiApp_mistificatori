@@ -11,6 +11,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.ViewHolder> {
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        appointment appointment = appointmentList.get(position);
+        if (appointment != null) {
+            String appointmentDate = appointment.getDate();
+            holder.dateTextView.setText(appointmentDate);
+        }
+    }
+
     private List<appointment> appointmentList;
 
     public AppointmentAdapter(List<appointment> appointmentList) {

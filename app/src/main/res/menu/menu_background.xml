@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+    <!-- ImageView per lo sfondo -->
+
+
+    <!-- Altri elementi UI possono essere aggiunti qui -->
+
+    <!-- Menu -->
+    <menu xmlns:android="http://schemas.android.com/apk/res/android">
+        <item
+            android:id="@+id/action_background1"
+            android:title="Sfondo 1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <item
+            android:id="@+id/action_background2"
+            android:title="Sfondo 2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </menu>
+
+
