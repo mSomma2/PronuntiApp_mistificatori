@@ -108,7 +108,7 @@ public class MenuParent extends AppCompatActivity {
                                     if (task.isSuccessful()) {
                                         // Rimozione riuscita
                                         Log.d("TAG", "Nodo eliminato con successo");
-                                        Intent intent = new Intent(MenuParent.this, MainActivity.class);
+                                        Intent intent = new Intent(MenuParent.this, mainActivity.class);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                                         startActivity(intent);
                                         finish();

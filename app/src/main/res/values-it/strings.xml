@@ -44,15 +44,5 @@
     <string name="selected">SELEZIONATO</string>
     <string name="select">SELEZIONA</string>
     <string name="poor">Non hai abbastanza monete</string>
-    <string name="modCorrezioneTitolo">Modifica correzione</string>
-    <string name="modCorrezioneMsg">Sei sicuro di modificare la correzione?</string>
-    <string name="yes">si</string>
-    <string name="parola">Parola:</string>
-    <string name="registrazione">Registrazione:</string>
-    <string name="correzione">Correzione automatica:</string>
-    <string name="esNonFatto">Esercizio non ancora svolto</string>
-    <string name="noCorrezione">Correzione non modificabile</string>
-    <string name="denominazione">TIPO: Denominazione</string>
-    <string name="sequenze">TIPO: Sequenze</string>
-    <string name="riconoscimento">TIPO: Riconoscimento</string>
+
 </resources>
