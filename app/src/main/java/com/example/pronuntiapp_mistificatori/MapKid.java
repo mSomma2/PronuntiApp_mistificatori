@@ -34,7 +34,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MappaBambino extends AppCompatActivity {
+public class MapKid extends AppCompatActivity {
 
     private final FirebaseDatabase database = FirebaseDatabase.getInstance("https://pronuntiapp---mistificatori-default-rtdb.europe-west1.firebasedatabase.app");
     private DatabaseReference databaseReference;
@@ -52,7 +52,7 @@ public class MappaBambino extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mappa_bambino);
+        setContentView(R.layout.activity_map_kid);
 
         codiceBimbo = getIntent().getStringExtra("codice");
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -67,9 +67,9 @@ public class MappaBambino extends AppCompatActivity {
                 String scenario = snapshot.child("scenario").getValue(String.class);
                 assert scenario != null;
                 if(scenario.equals("A")){
-                    sfondo.setBackground(ContextCompat.getDrawable(MappaBambino.this, R.drawable.sfondo1));
+                    sfondo.setBackground(ContextCompat.getDrawable(MapKid.this, R.drawable.sfondo1));
                 }else if(scenario.equals("B")){
-                    sfondo.setBackground(ContextCompat.getDrawable(MappaBambino.this, R.drawable.sfondo2));
+                    sfondo.setBackground(ContextCompat.getDrawable(MapKid.this, R.drawable.sfondo2));
                 }
             }
 
@@ -98,7 +98,7 @@ public class MappaBambino extends AppCompatActivity {
                     numButton++;
                     assert date != null;
                     Log.d("MIMMA", date);
-                    Button button = new Button(MappaBambino.this);
+                    Button button = new Button(MapKid.this);
                     LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                             400, 400
                     );
@@ -123,7 +123,7 @@ public class MappaBambino extends AppCompatActivity {
                         button.setBackgroundResource(R.drawable.es_errato);
                     }
 
-                    button.setTextColor(ContextCompat.getColor(MappaBambino.this, R.color.white));
+                    button.setTextColor(ContextCompat.getColor(MapKid.this, R.color.white));
                     button.setTextSize(17);
                     button.setTypeface(null, Typeface.BOLD);
                     button.setText(date.substring(0, 5));
@@ -284,13 +284,13 @@ public class MappaBambino extends AppCompatActivity {
                                     if(tipo != null){
                                         switch (tipo){
                                             case 1:
-                                                i = new Intent(MappaBambino.this, EsercizioDenominazione.class);
+                                                i = new Intent(MapKid.this, EsercizioDenominazione.class);
                                                 break;
                                             case 2:
-                                                i = new Intent(MappaBambino.this, EsercizioRipetizione.class);
+                                                i = new Intent(MapKid.this, EsercizioRipetizione.class);
                                                 break;
                                             case 3:
-                                                i = new Intent(MappaBambino.this, EsercizioCoppie.class);
+                                                i = new Intent(MapKid.this, EsercizioCoppie.class);
                                                 break;
                                         }
                                         if(i != null){
@@ -304,7 +304,7 @@ public class MappaBambino extends AppCompatActivity {
                                         }
                                     }
                                 }else{
-                                    Toast.makeText(MappaBambino.this, "mimma", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(MapKid.this, "mimma", Toast.LENGTH_SHORT).show();
                                 }
                             }
 
@@ -330,13 +330,13 @@ public class MappaBambino extends AppCompatActivity {
     }
 
     public void character(View view) {
-        Intent i = new Intent(MappaBambino.this, SelectCharacter.class);
+        Intent i = new Intent(MapKid.this, SelectCharacter.class);
         i.putExtra("codice", codiceBimbo);
         startActivity(i);
     }
 
     public void rank(View view) {
-        Intent i = new Intent(MappaBambino.this, SelectScenario.class);
+        Intent i = new Intent(MapKid.this, SelectScenario.class);
         i.putExtra("codice", codiceBimbo);
         startActivity(i);
     }

@@ -69,7 +69,7 @@ public class MenuParent extends AppCompatActivity {
     }
 
     public void start(View view) {
-        Intent i = new Intent(MenuParent.this, MappaBambino.class);
+        Intent i = new Intent(MenuParent.this, MapKid.class);
 
 
         i.putExtra("codice", codice);

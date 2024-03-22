@@ -198,7 +198,7 @@ public class EsercizioRipetizione extends AppCompatActivity {
     }
 
     private void showAnswer(int layout) {
-        Intent i = new Intent(EsercizioRipetizione.this, MappaBambino.class);
+        Intent i = new Intent(EsercizioRipetizione.this, MapKid.class);
         i.putExtra("codice", codice);
         Handler handler = new Handler();
         handler.postDelayed(() -> {
@@ -232,7 +232,7 @@ public class EsercizioRipetizione extends AppCompatActivity {
     }
 
     public void reset(View view) {
-        Intent i = new Intent(EsercizioRipetizione.this, MappaBambino.class);
+        Intent i = new Intent(EsercizioRipetizione.this, MapKid.class);
         i.putExtra("codice", codice);
         startActivity(i);
         finish();
