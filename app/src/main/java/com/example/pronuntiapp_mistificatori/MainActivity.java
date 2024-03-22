@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
                         // Il codice è già presente nel database, mostra un Toast
-                        Toast.makeText(MainActivity.this, "Il codice è già presente nel database", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mainActivity.this, "Il codice è già presente nel database", Toast.LENGTH_SHORT).show();
                     } else {
                         // Genera un nuovo ID univoco per il figlio
                         String nuovoFiglioKey = databaseReference.push().getKey();
@@ -154,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
                     // Gestisci eventuali errori nell'accesso al database
-                    Toast.makeText(MainActivity.this, "Errore nell'accesso al database", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mainActivity.this, "Errore nell'accesso al database", Toast.LENGTH_SHORT).show();
                 }
             });
             // Chiudi il dialog
@@ -194,7 +194,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 // Gestisci eventuali errori nell'accesso al database
-                Toast.makeText(MainActivity.this, "Errore nell'accesso al database", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mainActivity.this, "Errore nell'accesso al database", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -216,14 +216,14 @@ public class MainActivity extends AppCompatActivity {
                     assert sesso != null;
                     createKid(nome, sesso, code);
                 } else {
-                    Toast.makeText(MainActivity.this, "codice non presente", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mainActivity.this, "codice non presente", Toast.LENGTH_SHORT).show();
                 }
                 showAnimation();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(MainActivity.this, "Errore nel recupero dei dati: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(mainActivity.this, "Errore nel recupero dei dati: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -317,7 +317,7 @@ public class MainActivity extends AppCompatActivity {
         newItem.setCheckable(true);
         newItem.setIcon(R.drawable.baseline_logout_24);
         newItem.setOnMenuItemClickListener(item -> {
-            new AlertDialog.Builder(MainActivity.this)
+            new AlertDialog.Builder(mainActivity.this)
                     .setTitle(getString(R.string.logout))
                     .setMessage(getString(R.string.logoutConfirm))
                     .setPositiveButton(android.R.string.yes, (dialog, which) -> {

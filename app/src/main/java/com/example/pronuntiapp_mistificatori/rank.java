@@ -27,7 +27,7 @@ public class rank extends AppCompatActivity {
         codiceBimbo = getIntent().getStringExtra("codice");
     }
     public class LeaderboardActivity extends AppCompatActivity {
-
+        private final FirebaseDatabase database = FirebaseDatabase.getInstance("https://pronuntiapp---mistificatori-default-rtdb.europe-west1.firebasedatabase.app");
         private ListView listView;
         private ArrayList<String> leaderboardList;
         private ArrayAdapter<String> adapter;

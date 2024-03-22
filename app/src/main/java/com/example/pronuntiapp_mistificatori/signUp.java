@@ -14,7 +14,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class signUp extends AppCompatActivity {
     EditText mail, password1, password2;
@@ -151,7 +150,7 @@ public class signUp extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         // Registrazione riuscita
                         Toast.makeText(signUp.this, getString(R.string.welcome), Toast.LENGTH_SHORT).show();
-                        Intent i = new Intent(signUp.this, MainActivity.class);
+                        Intent i = new Intent(signUp.this, mainActivity.class);
                         startActivity(i);
                         finish();
                     } else {

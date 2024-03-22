@@ -34,7 +34,7 @@ public class SelectScenario extends AppCompatActivity {
         Button btnLeft = findViewById(R.id.btnLeft);
         Button btnRight = findViewById(R.id.btnRight);
         DatabaseReference databaseReference = database.getReference("logopedisti/ABC/Pazienti/" + codiceBimbo + "/scenario");
-        ViewPager2 viewPager = findViewById(R.id.scenario);
+        ViewPager2 viewPager = findViewById(R.id.activity_scenario);
 
         btnLeft.setOnClickListener(v -> {
             int currentItem = viewPager.getCurrentItem();
