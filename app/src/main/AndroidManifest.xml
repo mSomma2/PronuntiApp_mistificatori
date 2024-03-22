@@ -44,7 +44,7 @@
             android:name=".SelectCharacter"
             android:exported="false" />
         <activity
-            android:name=".MappaBambino"
+            android:name=".MapKid"
             android:exported="false" />
         <activity
             android:name=".EsercizioCoppie"

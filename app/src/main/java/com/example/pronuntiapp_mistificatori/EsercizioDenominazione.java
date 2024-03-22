@@ -207,7 +207,7 @@ public class EsercizioDenominazione extends AppCompatActivity{
     }
 
     public void reset(View view) {
-        Intent i = new Intent(EsercizioDenominazione.this, MappaBambino.class);
+        Intent i = new Intent(EsercizioDenominazione.this, MapKid.class);
         i.putExtra("codice", codice);
         startActivity(i);
         finish();    }
@@ -304,7 +304,7 @@ public class EsercizioDenominazione extends AppCompatActivity{
 
     private void showAnswer(int layout) {
         // Chiudi l'activity
-        Intent i = new Intent(EsercizioDenominazione.this, MappaBambino.class);
+        Intent i = new Intent(EsercizioDenominazione.this, MapKid.class);
         i.putExtra("codice", codice);
         Handler handler = new Handler();
         handler.postDelayed(() -> {
