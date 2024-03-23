@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SelectScenario">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnLeft"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@drawable/arrow_left"
+                android:backgroundTint="@color/orange"
+                android:onClick="switchScnario"
+                android:layout_marginStart="16dp"/>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/backGround"
+                    android:layout_width="250dp"
+                    android:layout_height="400dp"
+                    android:src="@drawable/sfondo1"
+                    android:contentDescription="@string/background" />
+
+                <ImageView
+                    android:id="@+id/showCharacter"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/personaggio_a"
+                    android:contentDescription="@string/background" />
+
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/btnRight"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@drawable/arrow_right"
+                android:backgroundTint="@color/orange"
+                android:onClick="switchScnario"
+                android:layout_marginEnd="16dp"/>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/confirmButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:onClick="setScenario"
+            android:textColor="@color/white"
+            android:enabled="false"
+            android:backgroundTint="@color/green_light"
+            android:text="@string/selected" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

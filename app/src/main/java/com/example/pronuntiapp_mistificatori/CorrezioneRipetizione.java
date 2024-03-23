@@ -106,6 +106,16 @@ public class CorrezioneRipetizione extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent i = new Intent(CorrezioneRipetizione.this, CorrezioneEsercizi.class);
+        i.putExtra("codice", codice);
+        i.putExtra("nome", nome);
+        startActivity(i);
+        finish();
+    }
+
     private void Initialize(String es){
         String percorso = "logopedisti/ABC/esercizi/" + es;
         DatabaseReference myRef = database.getReference(percorso);

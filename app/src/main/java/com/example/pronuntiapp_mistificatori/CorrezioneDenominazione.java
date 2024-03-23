@@ -103,6 +103,17 @@ public class CorrezioneDenominazione extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent i = new Intent(CorrezioneDenominazione.this, CorrezioneEsercizi.class);
+        i.putExtra("codice", codice);
+        i.putExtra("nome", nome);
+        startActivity(i);
+        finish();
+    }
+
+
     void Initialize(String es){
         String percorso = "logopedisti/ABC/esercizi/" + es;
         DatabaseReference myRef = database.getReference(percorso);

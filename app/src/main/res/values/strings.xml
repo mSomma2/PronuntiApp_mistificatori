@@ -43,4 +43,17 @@
     <string name="selected">SELECTED</string>
     <string name="select">SELECT</string>
     <string name="poor">You don\'t have enough coin</string>
+    <string name="modCorrezioneTitolo">Edit correction</string>
+    <string name="modCorrezioneMsg">Are you sure you want to edit the correction?</string>
+    <string name="yes">yes</string>
+    <string name="parola">Word:</string>
+    <string name="registrazione">Recording:</string>
+    <string name="correzione">Auto correction:</string>
+    <string name="esNonFatto">Exercise not yet completed</string>
+    <string name="noCorrezione">Non-editable correction</string>
+    <string name="denominazione">TYPE: Denomination</string>
+    <string name="sequenze">TYPE: Sequences</string>
+    <string name="riconoscimento">TYPE: Recognition</string>
+    <string name="scenario">Scenario</string>
+
 </resources>
